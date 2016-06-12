@@ -22,6 +22,24 @@
 IMPLEMENT_DYNCREATE(CPainterDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CPainterDoc, CDocument)
+	ON_COMMAND(ID_ELEMENT_LINE, &CPainterDoc::OnElementLine)
+	ON_COMMAND(ID_ELEMENT_RECTANGLE, &CPainterDoc::OnElementRectangle)
+	ON_COMMAND(ID_ELEMENT_CIRCLE, &CPainterDoc::OnElementCircle)
+	ON_COMMAND(ID_ELEMENT_CURVE, &CPainterDoc::OnElementCurve)
+	ON_COMMAND(ID_ELEMENT_ELLIPSE, &CPainterDoc::OnElementEllipse)
+	ON_COMMAND(ID_COLOR_BLACK, &CPainterDoc::OnColorBlack)
+	ON_COMMAND(ID_COLOR_RED, &CPainterDoc::OnColorRed)
+	ON_COMMAND(ID_COLOR_GREEN, &CPainterDoc::OnColorGreen)
+	ON_COMMAND(ID_COLOR_BLUE, &CPainterDoc::OnColorBlue)
+	ON_UPDATE_COMMAND_UI(ID_COLOR_BLACK, &CPainterDoc::OnUpdateColorBlack)
+	ON_UPDATE_COMMAND_UI(ID_COLOR_RED, &CPainterDoc::OnUpdateColorRed)
+	ON_UPDATE_COMMAND_UI(ID_COLOR_GREEN, &CPainterDoc::OnUpdateColorGreen)
+	ON_UPDATE_COMMAND_UI(ID_COLOR_BLUE, &CPainterDoc::OnUpdateColorBlue)
+	ON_UPDATE_COMMAND_UI(ID_ELEMENT_LINE, &CPainterDoc::OnUpdateElementLine)
+	ON_UPDATE_COMMAND_UI(ID_ELEMENT_RECTANGLE, &CPainterDoc::OnUpdateElementRectangle)
+	ON_UPDATE_COMMAND_UI(ID_ELEMENT_CIRCLE, &CPainterDoc::OnUpdateElementCircle)
+	ON_UPDATE_COMMAND_UI(ID_ELEMENT_CURVE, &CPainterDoc::OnUpdateElementCurve)
+	ON_UPDATE_COMMAND_UI(ID_ELEMENT_ELLIPSE, &CPainterDoc::OnUpdateElementEllipse)
 END_MESSAGE_MAP()
 
 
@@ -135,3 +153,129 @@ void CPainterDoc::Dump(CDumpContext& dc) const
 
 
 // CPainterDoc commands
+
+
+void CPainterDoc::OnElementLine()
+{
+	// Set type of element to line
+	m_Element = ElementType::LINE;
+}
+
+
+void CPainterDoc::OnElementRectangle()
+{
+	// Set type of element to rectangle
+	m_Element = ElementType::RECTANGLE;
+}
+
+
+void CPainterDoc::OnElementCircle()
+{
+	// Set type of element to circle
+	m_Element = ElementType::CIRCLE;
+}
+
+
+void CPainterDoc::OnElementCurve()
+{
+	// Set type of element to curve
+	m_Element = ElementType::CURVE;
+}
+
+
+void CPainterDoc::OnElementEllipse()
+{
+	// Set type of element to ellipse
+	m_Element = ElementType::ELLIPSE;
+}
+
+
+void CPainterDoc::OnColorBlack()
+{
+	// Set color of element to black
+	m_Color = ElementColor::BLACK;
+}
+
+
+void CPainterDoc::OnColorRed()
+{
+	// Set color of element to red
+	m_Color = ElementColor::RED;
+}
+
+
+void CPainterDoc::OnColorGreen()
+{
+	// Set color of element to green
+	m_Color = ElementColor::GREEN;
+}
+
+
+void CPainterDoc::OnColorBlue()
+{
+	// Set color of element to blue
+	m_Color = ElementColor::BLUE;
+}
+
+
+void CPainterDoc::OnUpdateColorBlack(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current color is black
+	pCmdUI->SetCheck(m_Color == ElementColor::BLACK);
+}
+
+
+void CPainterDoc::OnUpdateColorRed(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current color is red
+	pCmdUI->SetCheck(m_Color == ElementColor::RED);
+}
+
+
+void CPainterDoc::OnUpdateColorGreen(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current color is green
+	pCmdUI->SetCheck(m_Color == ElementColor::GREEN);
+}
+
+
+void CPainterDoc::OnUpdateColorBlue(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current color is blue
+	pCmdUI->SetCheck(m_Color == ElementColor::BLUE);
+}
+
+
+void CPainterDoc::OnUpdateElementLine(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current type is line
+	pCmdUI->SetCheck(m_Element == ElementType::LINE);
+}
+
+
+void CPainterDoc::OnUpdateElementRectangle(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current type is rectangle
+	pCmdUI->SetCheck(m_Element == ElementType::RECTANGLE);
+}
+
+
+void CPainterDoc::OnUpdateElementCircle(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current type is circle
+	pCmdUI->SetCheck(m_Element == ElementType::CIRCLE);
+}
+
+
+void CPainterDoc::OnUpdateElementCurve(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current type is curve
+	pCmdUI->SetCheck(m_Element == ElementType::CURVE);
+}
+
+
+void CPainterDoc::OnUpdateElementEllipse(CCmdUI *pCmdUI)
+{
+	// Set the menu item checked if current type is ellipse
+	pCmdUI->SetCheck(m_Element == ElementType::ELLIPSE);
+}

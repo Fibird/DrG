@@ -50,7 +50,7 @@ BOOL CPainterView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CPainterView drawing
 
-void CPainterView::OnDraw(CDC* /*pDC*/)
+void CPainterView::OnDraw(CDC* pDC)
 {
 	CPainterDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
