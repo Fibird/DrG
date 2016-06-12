@@ -186,22 +186,34 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Curve.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="ElementColor.h" />
     <ClInclude Include="ElementType.h" />
+    <ClInclude Include="Ellipse.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="PainterDoc.h" />
     <ClInclude Include="PainterView.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Curve.cpp" />
+    <ClCompile Include="Element.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="PainterDoc.cpp" />
     <ClCompile Include="PainterView.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

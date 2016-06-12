@@ -26,11 +26,15 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
 
 CPainterView::CPainterView()
+	: m_FirstPoint{CPoint{}}
 {
 	// TODO: add construction code here
 
@@ -56,8 +60,19 @@ void CPainterView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	CPen aPen;
+	aPen.CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 
+	CPen* pOldPen{ pDC->SelectObject(&aPen) };
 	// TODO: add draw code for native data here
+	//pDC->MoveTo(50, 50);
+	//pDC->LineTo(50, 200);
+	pDC->Ellipse(50, 50, 150, 150);
+	CRect rect { 250, 50, 300, 100 };
+	CPoint start { 275, 100 };
+	CPoint end { 250, 75 };
+	pDC->Arc(&rect, start, end);
+	pDC->SelectObject(pOldPen);
 }
 
 
@@ -102,3 +117,27 @@ CPainterDoc* CPainterView::GetDocument() const // non-debug version is inline
 
 
 // CPainterView message handlers
+
+
+void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CView::OnLButtonUp(nFlags, point);
+}
+
+
+void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	m_FirstPoint = point;	//Record the cursor position
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CView::OnMouseMove(nFlags, point);
+}
