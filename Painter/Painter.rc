@@ -110,13 +110,20 @@ BEGIN
     BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
     SEPARATOR
-    BUTTON      ID_BUTTON32780
-    BUTTON      ID_BUTTON32782
-    BUTTON      ID_BUTTON32784
-    BUTTON      ID_BUTTON32785
-    BUTTON      ID_BUTTON32786
+    BUTTON      ID_ELEMENT_LINE
+    BUTTON      ID_ELEMENT_RECTANGLE
+    BUTTON      ID_ELEMENT_CIRCLE
+    BUTTON      ID_ELEMENT_ELLIPSE
+    BUTTON      ID_ELEMENT_CURVE
     SEPARATOR
-    BUTTON      ID_BUTTON32790
+    BUTTON      ID_ERASER_BUTTON
+    BUTTON      ID_PEN_BUTTON
+    BUTTON      ID_FILL_BUTTON
+    SEPARATOR
+    BUTTON      ID_COLOR_BLACK
+    BUTTON      ID_COLOR_RED
+    BUTTON      ID_COLOR_GREEN
+    BUTTON      ID_COLOR_BLUE
 END
 
 
@@ -443,11 +450,22 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_ELEMENT_LINE         "draw lines"
-    ID_ELEMENT_RECTANGLE    "draw rectangles"
-    ID_ELEMENT_CIRCLE       "draw circles"
-    ID_ELEMENT_CURVE        "draw curves"
-    ID_ELEMENT_ELLIPSE      "draw ellipses"
+    ID_ELEMENT_LINE         "draw lines\nlines"
+    ID_ELEMENT_RECTANGLE    "draw rectangles\nrectangle"
+    ID_ELEMENT_CIRCLE       "draw circles\ncircle"
+    ID_ELEMENT_CURVE        "draw curves\ncurve"
+    ID_ELEMENT_ELLIPSE      "draw ellipses\nellipse"
+    ID_COLOR_BLACK          "draw with black\nblack"
+    ID_COLOR_RED            "draw with red\nred"
+    ID_COLOR_GREEN          "draw with green\ngreen"
+    ID_COLOR_BLUE           "draw with blue\nblue"
+END
+
+STRINGTABLE
+BEGIN
+    ID_ERASER_BUTTON        "eraser\neraser"
+    ID_PEN_BUTTON           "pen\npen"
+    ID_FILL_BUTTON          "filler\nfiller"
 END
 
 #endif    // English (United States) resources
