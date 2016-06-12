@@ -26,7 +26,7 @@ void CLine::Draw(CDC * pDC)
 	pDC->SelectObject(pOldPen);
 }
 
-CLine::CLine(const CPoint & start, const CPoint & end, COLORREF color) :
+CLine::CLine(const CPoint& start, const CPoint& end, COLORREF color) :
 	CElement{ start, color }, m_EndPoint{ end }
 {
 	//define the enclosing rectangle
