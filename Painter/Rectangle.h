@@ -4,7 +4,15 @@ class CRectangle :
 	public CElement
 {
 public:
-	CRectangle();
+	//CRectangle();
 	virtual ~CRectangle();
+	virtual void Draw(CDC *pDC) override;	//Display a rectangle
+
+	//Constructor for a rectangle object
+	CRectangle(const CPoint& start, const CPoint& end, COLORREF color);
+
+protected:
+	CPoint m_BottomRight;
+	CRectangle();
 };
 

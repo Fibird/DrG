@@ -19,6 +19,16 @@ public:
 protected:
 	CElement();
 	CElement(const CPoint& start, COLORREF color, int penWidth = 1);
+	//Create a pen
+	void CreatePen(CPen& aPen)
+	{
+		if (!aPen.CreatePen(PS_SOLID, m_PenWidth, m_Color))
+		{
+			//Pen creation failed
+			AfxMessageBox(_T("Pen creation failed."), MB_OK);
+			AfxAbort();
+		}
+	}
 };
 
 

@@ -26,7 +26,11 @@ void CLine::Draw(CDC * pDC)
 	pDC->SelectObject(pOldPen);
 }
 
-CLine::CLine(const CPoint & start, const CPoint & end, COLORREF aColor) :
-	CElement{ start, aColor }, m_EndPoint{ end }
+CLine::CLine(const CPoint & start, const CPoint & end, COLORREF color) :
+	CElement{ start, color }, m_EndPoint{ end }
 {
+	//define the enclosing rectangle
+	m_EnclosingRect = CRect{ start, end };
+	m_EnclosingRect.NormalizeRect();
+	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
 }
