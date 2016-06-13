@@ -151,6 +151,10 @@ CPainterDoc* CPainterView::GetDocument() const // non-debug version is inline
 
 void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	if (this == GetCapture())
+	{
+		ReleaseCapture();		//Stop capturing mouse messages
+	}
 	//Make sure there is a element
 	if (m_pTempElement)
 	{
@@ -165,9 +169,10 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
 	m_FirstPoint = point;	//Record the cursor position
-	CView::OnLButtonDown(nFlags, point);
+	SetCapture();			//Capture subsequent mouse message
+	//Must use ReleaseCapture in OnLButtonUp!!!
+	//CView::OnLButtonDown(nFlags, point);
 }
 
 
@@ -175,7 +180,7 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	//Define a device context object for the view
 	CClientDC aDC{ this };
-	if (nFlags & MK_LBUTTON)
+	if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
 	{
 		m_SecondPoint = point;
 		if (m_pTempElement)
