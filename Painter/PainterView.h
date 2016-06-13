@@ -38,7 +38,7 @@ public:
 #endif
 
 protected:
-	//Create a new element
+	//创建一个新图形
 	std::shared_ptr<CElement> CreateElement() const;
 // Generated message map functions
 protected:
@@ -48,8 +48,8 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 protected:
-	CPoint m_FirstPoint;	//First point recorded for an element
-	CPoint m_SecondPoint;	//First point recorded for an element
+	CPoint m_FirstPoint;	//记录这个图形的第一个点
+	CPoint m_SecondPoint;	//记录这个图形的第二个点
 	std::shared_ptr<CElement> m_pTempElement;
 };
 

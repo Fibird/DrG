@@ -65,7 +65,7 @@ void CPainterView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	//Draw the painting
+	//»æÖÆÍ¼Ïñ
 	for (auto it = pDoc->begin(); it != pDoc->end(); ++it)
 		for (const auto& pElement : *pDoc)
 		{
@@ -185,8 +185,7 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 		m_SecondPoint = point;
 		if (m_pTempElement)
 		{
-			//An element was created previously
-			//Justify if it is curve
+			//ÅÐ¶ÏÊÇ·ñÊÇÇúÏß
 			if (ElementType::CURVE == GetDocument()->GetElementType())
 			{
 				//Is curve, then add a segment to the existing curve

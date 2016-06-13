@@ -13,17 +13,17 @@ CCircle::~CCircle()
 
 void CCircle::Draw(CDC * pDC)
 {
-	//Create a pen for this object and initialize it
+	//创建一个笔然后初始化
 	CPen aPen;
 	CreatePen(aPen);
-	CPen *pOldPen{ pDC->SelectObject(&aPen) };  //Select the pen
+	CPen *pOldPen{ pDC->SelectObject(&aPen) };  //选择一个笔
 
-	//Select a null brush
+	//选择一个空的画笔，然后强制转化成CBrush*型
 	CBrush *pOldBrush{ dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH)) };
 
-	//Draw the circle
+	//使用短轴和长轴相等的椭圆来绘制圆
 	pDC->Ellipse(m_StartPoint.x, m_StartPoint.y, m_BottomRight.x, m_BottomRight.y);
-
+	//保存以前的笔和画笔
 	pDC->SelectObject(pOldPen);
 	pDC->SelectObject(pOldBrush);
 }
@@ -31,13 +31,13 @@ void CCircle::Draw(CDC * pDC)
 CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color) :
 	CElement{ start, color }
 {
-	//Calcument the radius using floating-point values
+	//计算圆的半径
 	long radius{ static_cast<long> (sqrt(
 		static_cast<double>((end.x - start.x) * (end.x - start.x) +
 		(end.y - start.y) * (end.y - start.y)))) };
 	if (radius < 1L)
 	{
-		radius = 1L;	//Circle radius must be >= 1
+		radius = 1L;	//圆的半径必须大于1
 	}
 
 	//Define left-top and right-bottom points of rectangle for MM_TEXT mode
