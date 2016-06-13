@@ -11,6 +11,11 @@
 
 #include "PainterDoc.h"
 #include "PainterView.h"
+#include "Curve.h"
+#include "Circle.h"
+#include "Line.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -60,19 +65,15 @@ void CPainterView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	CPen aPen;
-	aPen.CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-
-	CPen* pOldPen{ pDC->SelectObject(&aPen) };
-	// TODO: add draw code for native data here
-	//pDC->MoveTo(50, 50);
-	//pDC->LineTo(50, 200);
-	pDC->Ellipse(50, 50, 150, 150);
-	CRect rect { 250, 50, 300, 100 };
-	CPoint start { 275, 100 };
-	CPoint end { 250, 75 };
-	pDC->Arc(&rect, start, end);
-	pDC->SelectObject(pOldPen);
+	//Draw the painting
+	for (auto it = pDoc->begin(); it != pDoc->end(); ++it)
+		for (const auto& pElement : *pDoc)
+		{
+			if (pDC->RectVisible(pElement->GetEnclosingRect()))
+			{
+				pElement->Draw(pDC);
+			}
+		}
 }
 
 
@@ -108,6 +109,35 @@ void CPainterView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
+std::shared_ptr<CElement> CPainterView::CreateElement() const
+{
+	//Get a pointer to the document for this view
+	CPainterDoc *pDoc = GetDocument();
+	ASSERT_VALID(pDoc);		//Vertify the pointer is good
+
+	//Get the current element color
+	COLORREF color{ static_cast<COLORREF>(pDoc->GetElementColor()) };
+
+	//Now select the element using the type stored in the document
+	switch (pDoc->GetElementType())
+	{
+	case ElementType::RECTANGLE:
+		return std::make_shared<CRectangle>(m_FirstPoint, m_SecondPoint, color);
+	case ElementType::CIRCLE:
+		return std::make_shared<CCircle>(m_FirstPoint, m_SecondPoint, color);
+	case ElementType::CURVE:
+		return std::make_shared<CCurve>(m_FirstPoint, m_SecondPoint, color);
+	case ElementType::LINE:
+		return std::make_shared<CLine>(m_FirstPoint, m_SecondPoint, color);
+	case ElementType::ELLIPSE:
+		return std::make_shared<CEllipse>(m_FirstPoint, m_SecondPoint, color);
+	default:
+		AfxMessageBox(_T("Bad Element code"), MB_OK);
+		AfxAbort();
+		return nullptr;
+	}
+}
+
 CPainterDoc* CPainterView::GetDocument() const // non-debug version is inline
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPainterDoc)));
@@ -121,9 +151,15 @@ CPainterDoc* CPainterView::GetDocument() const // non-debug version is inline
 
 void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
-
-	CView::OnLButtonUp(nFlags, point);
+	//Make sure there is a element
+	if (m_pTempElement)
+	{
+		//Add the element pointer to the paint
+		GetDocument()->AddElement(m_pTempElement);
+		InvalidateRect(&m_pTempElement->GetEnclosingRect());
+		m_pTempElement.reset();
+	}
+	//CView::OnLButtonUp(nFlags, point);
 }
 
 
@@ -137,7 +173,32 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
-
-	CView::OnMouseMove(nFlags, point);
+	//Define a device context object for the view
+	CClientDC aDC{ this };
+	if (nFlags & MK_LBUTTON)
+	{
+		m_SecondPoint = point;
+		if (m_pTempElement)
+		{
+			//An element was created previously
+			//Justify if it is curve
+			if (ElementType::CURVE == GetDocument()->GetElementType())
+			{
+				//Is curve, then add a segment to the existing curve
+				std::dynamic_pointer_cast<CCurve>(m_pTempElement)->AddSegment(m_SecondPoint);
+				m_pTempElement->Draw(&aDC);
+				return;
+			}
+			else
+			{
+				//Is not curve, so redraw the old element
+				aDC.SetROP2(R2_NOTXORPEN);		//Set the drawing mode
+				m_pTempElement->Draw(&aDC);		//Redraw the old element to erase it
+			}
+		}
+		//Create a 
+		m_pTempElement = CreateElement();
+		m_pTempElement->Draw(&aDC);
+	}
+	//CView::OnMouseMove(nFlags, point);
 }

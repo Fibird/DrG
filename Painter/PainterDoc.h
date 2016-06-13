@@ -4,8 +4,13 @@
 
 
 #pragma once
+#include <memory>
+#include <list>
 #include "ElementType.h"
 #include "ElementColor.h"
+#include "Element.h"
+
+using PaintIterator = std::list<std::shared_ptr<CElement>>::const_iterator;
 
 class CPainterDoc : public CDocument
 {
@@ -18,6 +23,16 @@ public:
 
 // Operations
 public:
+	//Provide a begin iterator for the painting
+	PaintIterator begin() const
+	{
+		return std::begin(m_Paint);
+	}
+	//Provide a ene iterator for the painting
+	PaintIterator end() const
+	{
+		return std::end(m_Paint);
+	}
 
 // Overrides
 public:
@@ -35,6 +50,17 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
+	//Add a painting element
+	void AddElement(std::shared_ptr<CElement>& pElement)
+	{
+		m_Paint.push_back(pElement);
+	}
+
+	//Delete a painting element
+	void DeleteElement(std::shared_ptr<CElement>& pElement)
+	{
+		m_Paint.remove(pElement);
+	}
 
 protected:
 
@@ -63,6 +89,7 @@ protected:
 	ElementType m_Element = { ElementType::LINE };
 	// Current color of the element
 	ElementColor m_Color = { ElementColor::BLACK };
+	std::list<std::shared_ptr<CElement>> m_Paint;	//Use list to contain the paintint
 public:
 	afx_msg void OnUpdateColorBlack(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateColorRed(CCmdUI *pCmdUI);

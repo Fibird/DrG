@@ -38,7 +38,8 @@ public:
 #endif
 
 protected:
-
+	//Create a new element
+	std::shared_ptr<CElement> CreateElement() const;
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -48,6 +49,7 @@ public:
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 protected:
 	CPoint m_FirstPoint;	//First point recorded for an element
+	CPoint m_SecondPoint;	//First point recorded for an element
 	std::shared_ptr<CElement> m_pTempElement;
 };
 
