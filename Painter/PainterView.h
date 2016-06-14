@@ -50,6 +50,7 @@ public:
 protected:
 	CPoint m_FirstPoint;	//记录这个图形的第一个点
 	CPoint m_SecondPoint;	//记录这个图形的第二个点
+	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
 };
 

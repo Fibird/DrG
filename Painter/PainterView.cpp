@@ -66,9 +66,10 @@ void CPainterView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 	//绘制图像
-	for (auto it = pDoc->begin(); it != pDoc->end(); ++it)
+	for (auto it = pDoc->begin(); it != pDoc->end(); ++it)	//使用了迭代器
 		for (const auto& pElement : *pDoc)
 		{
+			//确定给定矩形的任何部分是处于显示上下文之间的区域。
 			if (pDC->RectVisible(pElement->GetEnclosingRect()))
 			{
 				pElement->Draw(pDC);
@@ -111,14 +112,14 @@ void CPainterView::Dump(CDumpContext& dc) const
 
 std::shared_ptr<CElement> CPainterView::CreateElement() const
 {
-	//Get a pointer to the document for this view
+	//获取指向当前视图文档的指针
 	CPainterDoc *pDoc = GetDocument();
 	ASSERT_VALID(pDoc);		//Vertify the pointer is good
 
-	//Get the current element color
+	//获得当前图形的颜色
 	COLORREF color{ static_cast<COLORREF>(pDoc->GetElementColor()) };
 
-	//Now select the element using the type stored in the document
+	//根据存储在文档中的图形类型来选择图形
 	switch (pDoc->GetElementType())
 	{
 	case ElementType::RECTANGLE:
@@ -153,9 +154,9 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if (this == GetCapture())
 	{
-		ReleaseCapture();		//Stop capturing mouse messages
+		ReleaseCapture();		//停止捕获鼠标消息
 	}
-	//Make sure there is a element
+
 	if (m_pTempElement)
 	{
 		//Add the element pointer to the paint
@@ -178,8 +179,9 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	//Define a device context object for the view
+	//定义设备上下文
 	CClientDC aDC{ this };
+	//首先要判断是否按下鼠标左键以及是否成功捕捉鼠标
 	if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
 	{
 		m_SecondPoint = point;
@@ -200,7 +202,7 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 				m_pTempElement->Draw(&aDC);		//Redraw the old element to erase it
 			}
 		}
-		//Create a 
+
 		m_pTempElement = CreateElement();
 		m_pTempElement->Draw(&aDC);
 	}

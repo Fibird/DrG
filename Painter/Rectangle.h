@@ -4,11 +4,10 @@ class CRectangle :
 	public CElement
 {
 public:
-	//CRectangle();
 	virtual ~CRectangle();
-	virtual void Draw(CDC *pDC) override;	//Display a rectangle
+	virtual void Draw(CDC *pDC) override;	//显示一个矩形，覆盖父类的Draw函数
 
-	//Constructor for a rectangle object
+	//构造函数
 	CRectangle(const CPoint& start, const CPoint& end, COLORREF color);
 
 protected:

@@ -14,7 +14,7 @@ public:
 	virtual ~CElement();
 	virtual void Draw(CDC *pDC) {}	//这里Draw类型为虚函数
 
-	//获得包围图形的矩形
+	//获取界定图形占用区域的矩形
 	const CRect& GetEnclosingRect() const { return m_EnclosingRect; }
 protected:
 	CElement();

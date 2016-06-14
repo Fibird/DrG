@@ -6,16 +6,15 @@ class CCurve :
 	public CElement
 {
 public:
-	//CCurve();
 	virtual ~CCurve();
-	virtual void Draw(CDC *pDC) override;  //Display a curve
+	virtual void Draw(CDC *pDC) override;  //覆盖父类的Draw函数
 
-	//Constructor for curve object
+	//构造函数
 	CCurve(const CPoint& first, const CPoint& second, COLORREF color);
 
-	void AddSegment(const CPoint& point);		//Add a segment to the curve
+	void AddSegment(const CPoint& point);		//添加曲线的一段
 protected:
-	std::vector<CPoint> m_Points;
+	std::vector<CPoint> m_Points;	//存储曲线的点
 	CCurve();
 };
 

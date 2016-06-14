@@ -4,11 +4,10 @@ class CEllipse :
 	public CElement
 {
 public:
-	//CEllipse();
 	virtual ~CEllipse();
-	virtual void Draw(CDC *pDC) override;	//Display a ellipse
+	virtual void Draw(CDC *pDC) override;	//覆盖父类的Draw函数
 
-	//Constructor for ellipse
+	//构造函数
 	CEllipse(const CPoint& center, const CPoint& end, COLORREF color);
 
 protected:

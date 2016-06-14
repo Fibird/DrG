@@ -4,11 +4,10 @@ class CCircle :
 	public CElement
 {
 public:
-	//CCircle();
 	virtual ~CCircle();
-	virtual void Draw(CDC *pDC) override;  //display a circle
+	virtual void Draw(CDC *pDC) override;  //覆盖父类的Draw函数
 
-	//Constructor for a circle object
+	//构造函数
 	CCircle(const CPoint& start, const CPoint& end, COLORREF color);
 
 protected:
