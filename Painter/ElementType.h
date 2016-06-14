@@ -1,6 +1,5 @@
 #pragma once
-
-//standard painter element type identifiers
+//标准的图形类型
 enum class ElementType
 {
 	LINE,

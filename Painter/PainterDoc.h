@@ -50,13 +50,12 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-	//Add a painting element
+	//将图形添加到m_Paint中
 	void AddElement(std::shared_ptr<CElement>& pElement)
 	{
 		m_Paint.push_back(pElement);
 	}
 
-	//Delete a painting element
 	void DeleteElement(std::shared_ptr<CElement>& pElement)
 	{
 		m_Paint.remove(pElement);
@@ -85,11 +84,11 @@ public:
 	ElementType GetElementType() { return m_Element; }
 	ElementColor GetElementColor() { return m_Color; }
 protected:
-	// Current type of  element 
+	//图形的默认类型为直线 
 	ElementType m_Element = { ElementType::LINE };
-	// Current color of the element
+	//图形的默认颜色为黑色
 	ElementColor m_Color = { ElementColor::BLACK };
-	std::list<std::shared_ptr<CElement>> m_Paint;	//Use list to contain the paintint
+	std::list<std::shared_ptr<CElement>> m_Paint;	//使用list数据结构来存储图像
 public:
 	afx_msg void OnUpdateColorBlack(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateColorRed(CCmdUI *pCmdUI);

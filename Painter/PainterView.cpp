@@ -159,7 +159,7 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if (m_pTempElement)
 	{
-		//Add the element pointer to the paint
+		//把最终的图形添加到文档对象中显示
 		GetDocument()->AddElement(m_pTempElement);
 		InvalidateRect(&m_pTempElement->GetEnclosingRect());
 		m_pTempElement.reset();
@@ -170,9 +170,9 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	m_FirstPoint = point;	//Record the cursor position
-	SetCapture();			//Capture subsequent mouse message
-	//Must use ReleaseCapture in OnLButtonUp!!!
+	m_FirstPoint = point;	//记录光标的位置
+	SetCapture();			//捕获随后的鼠标消息
+	//注意必须在OnLButtonUp中释放消息
 	//CView::OnLButtonDown(nFlags, point);
 }
 
@@ -190,19 +190,18 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 			//判断是否是曲线
 			if (ElementType::CURVE == GetDocument()->GetElementType())
 			{
-				//Is curve, then add a segment to the existing curve
+				//如果是曲线就添加后续的点
 				std::dynamic_pointer_cast<CCurve>(m_pTempElement)->AddSegment(m_SecondPoint);
 				m_pTempElement->Draw(&aDC);
 				return;
 			}
 			else
 			{
-				//Is not curve, so redraw the old element
-				aDC.SetROP2(R2_NOTXORPEN);		//Set the drawing mode
-				m_pTempElement->Draw(&aDC);		//Redraw the old element to erase it
+				//如果不是曲线
+				aDC.SetROP2(R2_NOTXORPEN);		//设置绘图模式以实现“橡皮筋”操作
+				m_pTempElement->Draw(&aDC);		//重绘图像，不是最终图像
 			}
 		}
-
 		m_pTempElement = CreateElement();
 		m_pTempElement->Draw(&aDC);
 	}

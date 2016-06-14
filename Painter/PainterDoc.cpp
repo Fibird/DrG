@@ -157,63 +157,63 @@ void CPainterDoc::Dump(CDumpContext& dc) const
 
 void CPainterDoc::OnElementLine()
 {
-	// Set type of element to line
+	//设置图形类型为直线
 	m_Element = ElementType::LINE;
 }
 
 
 void CPainterDoc::OnElementRectangle()
 {
-	// Set type of element to rectangle
+	//设置图形类型为矩形
 	m_Element = ElementType::RECTANGLE;
 }
 
 
 void CPainterDoc::OnElementCircle()
 {
-	// Set type of element to circle
+	//设置图形类型为圆
 	m_Element = ElementType::CIRCLE;
 }
 
 
 void CPainterDoc::OnElementCurve()
 {
-	// Set type of element to curve
+	//设置图形类型为曲线
 	m_Element = ElementType::CURVE;
 }
 
 
 void CPainterDoc::OnElementEllipse()
 {
-	// Set type of element to ellipse
+	//设置图形类型为椭圆
 	m_Element = ElementType::ELLIPSE;
 }
 
 
 void CPainterDoc::OnColorBlack()
 {
-	// Set color of element to black
+	//将图形颜色设置为黑色
 	m_Color = ElementColor::BLACK;
 }
 
 
 void CPainterDoc::OnColorRed()
 {
-	// Set color of element to red
+	//将图形颜色设置为红色
 	m_Color = ElementColor::RED;
 }
 
 
 void CPainterDoc::OnColorGreen()
 {
-	// Set color of element to green
+	//将图形颜色设置为绿色
 	m_Color = ElementColor::GREEN;
 }
 
 
 void CPainterDoc::OnColorBlue()
 {
-	// Set color of element to blue
+	//将图形颜色设置为蓝色
 	m_Color = ElementColor::BLUE;
 }
 

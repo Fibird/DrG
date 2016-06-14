@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-//standard color of element identifiers
+//标准的颜色类型
 enum class ElementColor : COLORREF
 {
 	BLACK = RGB(0, 0, 0),
