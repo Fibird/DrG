@@ -241,7 +241,9 @@ void CPainterView::OnInitialUpdate()
 {
 	CScrollView::OnInitialUpdate();
 	//文档的大小
-	CSize Docsize{ 2000, 20000 };
+	//CSize Docsize{ 2000, 20000 };
+	CSize Docsize{ 3000, 3000 };
 	//设置映射模式和文档的大小
-	SetScrollSizes(MM_TEXT, Docsize, CSize{ 500, 500 }, CSize{ 20, 20 });
+	//SetScrollSizes(MM_TEXT, Docsize, CSize{ 500, 500 }, CSize{ 20, 20 });
+	SetScrollSizes(MM_LOENGLISH, Docsize);
 }
