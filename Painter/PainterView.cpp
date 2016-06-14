@@ -24,9 +24,9 @@
 
 // CPainterView
 
-IMPLEMENT_DYNCREATE(CPainterView, CView)
+IMPLEMENT_DYNCREATE(CPainterView, CScrollView)
 
-BEGIN_MESSAGE_MAP(CPainterView, CView)
+BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
@@ -159,28 +159,37 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if (m_pTempElement)
 	{
+		CRect aRect{ m_pTempElement->GetEnclosingRect() };	//获取边界矩形
 		//把最终的图形添加到文档对象中显示
 		GetDocument()->AddElement(m_pTempElement);
-		InvalidateRect(&m_pTempElement->GetEnclosingRect());
+
+		CClientDC aDC{ this };
+		OnPrepareDC(&aDC);
+		aDC.LPtoDP(aRect);
+		InvalidateRect(aRect);
 		m_pTempElement.reset();
 	}
-	//CView::OnLButtonUp(nFlags, point);
 }
 
 
 void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	CClientDC aDC{ this };	//创建设备上下文
+	OnPrepareDC(&aDC);		//调节原点位置
+	aDC.DPtoLP(&point);		//转化为逻辑坐标
 	m_FirstPoint = point;	//记录光标的位置
 	SetCapture();			//捕获随后的鼠标消息
 	//注意必须在OnLButtonUp中释放消息
-	//CView::OnLButtonDown(nFlags, point);
+	
 }
 
 
 void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	//定义设备上下文
+	//创建设备上下文
 	CClientDC aDC{ this };
+	OnPrepareDC(&aDC);
+	aDC.DPtoLP(&point);
 	//首先要判断是否按下鼠标左键以及是否成功捕捉鼠标
 	if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
 	{
@@ -206,4 +215,33 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 		m_pTempElement->Draw(&aDC);
 	}
 	//CView::OnMouseMove(nFlags, point);
+}
+
+
+void CPainterView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+{
+	if (pHint)
+	{
+		//创建设备上下文
+		CClientDC aDC{ this };
+		OnPrepareDC(&aDC);		//调整原点位置
+		//获取边界矩形，并转化为客户区坐标
+		CRect aRect{ dynamic_cast<CElement*>(pHint)->GetEnclosingRect() };
+		aDC.LPtoDP(&aRect);
+		InvalidateRect(aRect);
+	}
+	else
+	{
+		InvalidateRect(nullptr);
+	}
+}
+
+
+void CPainterView::OnInitialUpdate()
+{
+	CScrollView::OnInitialUpdate();
+	//文档的大小
+	CSize Docsize{ 2000, 20000 };
+	//设置映射模式和文档的大小
+	SetScrollSizes(MM_TEXT, Docsize, CSize{ 500, 500 }, CSize{ 20, 20 });
 }

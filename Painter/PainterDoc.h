@@ -10,6 +10,7 @@
 #include "ElementColor.h"
 #include "Element.h"
 
+//创建一个迭代器用来保存
 using PaintIterator = std::list<std::shared_ptr<CElement>>::const_iterator;
 
 class CPainterDoc : public CDocument
@@ -23,12 +24,12 @@ public:
 
 // Operations
 public:
-	//Provide a begin iterator for the painting
+	//提供存储绘图图形的迭代器的开始
 	PaintIterator begin() const
 	{
 		return std::begin(m_Paint);
 	}
-	//Provide a ene iterator for the painting
+	//提供存储绘图图形的迭代器的结束
 	PaintIterator end() const
 	{
 		return std::end(m_Paint);
@@ -55,10 +56,11 @@ public:
 	{
 		m_Paint.push_back(pElement);
 	}
-
+	//删除图形
 	void DeleteElement(std::shared_ptr<CElement>& pElement)
 	{
 		m_Paint.remove(pElement);
+		UpdateAllViews(nullptr, 0, pElement.get());
 	}
 
 protected:
