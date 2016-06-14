@@ -52,7 +52,7 @@ protected:
 	CPoint m_SecondPoint;	//记录这个图形的第二个点
 	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
-	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
+	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 public:
 	virtual void OnInitialUpdate();
 };
