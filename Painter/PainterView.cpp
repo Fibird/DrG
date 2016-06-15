@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_ELEMENT_MOVE, &CPainterView::OnElementMove)
+	ON_COMMAND(ID_ELEMENT_DELETE, &CPainterView::OnElementDelete)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -73,7 +75,7 @@ void CPainterView::OnDraw(CDC* pDC)
 			//确定给定矩形的任何部分是处于显示上下文之间的区域。
 			if (pDC->RectVisible(pElement->GetEnclosingRect()))
 			{
-				pElement->Draw(pDC);
+				pElement->Draw(pDC, m_pSelected);
 			}
 		}
 }
@@ -217,8 +219,20 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 	else
 	{
+		auto pOldSelected = m_pSelected;
 		//定位鼠标的位置
 		m_pSelected = GetDocument()->FindElement(point);
+		if (m_pSelected != pOldSelected)
+		{
+			if (m_pSelected)
+			{
+				GetDocument()->UpdateAllViews(nullptr, 0, m_pSelected.get());
+			}
+			if (pOldSelected)
+			{
+				GetDocument()->UpdateAllViews(nullptr, 0, pOldSelected.get());
+			}
+		}
 	}
 }
 
@@ -299,4 +313,21 @@ void CPainterView::OnContextMenu(CWnd* pWnd, CPoint point)
 	//确保pContext不为空
 	ASSERT(pContext != nullptr);
 	pContext->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, this);
+}
+
+
+void CPainterView::OnElementMove()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CPainterView::OnElementDelete()
+{
+	//删除选中的图形
+	if (m_pSelected)
+	{
+		GetDocument()->DeleteElement(m_pSelected);
+		m_pSelected.reset();
+	}
 }

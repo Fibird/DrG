@@ -11,11 +11,11 @@ CCurve::~CCurve()
 {
 }
 
-void CCurve::Draw(CDC * pDC)
+void CCurve::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 {
 	//创建画笔并初始化
 	CPen aPen;
-	CreatePen(aPen);
+	CreatePen(aPen, pElement);
 
 	CPen* pOldPen{ pDC->SelectObject(&aPen) };
 

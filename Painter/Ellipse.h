@@ -5,7 +5,7 @@ class CEllipse :
 {
 public:
 	virtual ~CEllipse();
-	virtual void Draw(CDC *pDC) override;	//覆盖父类的Draw函数
+	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) override;	//覆盖父类的Draw函数
 
 	//构造函数
 	CEllipse(const CPoint& center, const CPoint& end, COLORREF color);

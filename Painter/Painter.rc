@@ -83,7 +83,7 @@ BEGIN
         MENUITEM "&Black",                      ID_COLOR_BLACK
         MENUITEM "&Red",                        ID_COLOR_RED
         MENUITEM "&Green",                      ID_COLOR_GREEN
-        MENUITEM "B&lue",                       ID_COLOR_BLUE
+        MENUITEM "Bl&ue",                       ID_COLOR_BLUE
     END
     POPUP "no element"
     BEGIN
@@ -175,7 +175,7 @@ BEGIN
     BUTTON      ID_ELEMENT_CURVE
     SEPARATOR
     BUTTON      ID_ERASER_BUTTON
-    BUTTON      ID_PEN_BUTTON
+    BUTTON      ID_ELEMENT_CURVE
     BUTTON      ID_FILL_BUTTON
     SEPARATOR
     BUTTON      ID_COLOR_BLACK
@@ -259,7 +259,7 @@ BEGIN
         MENUITEM "&Black",                      ID_COLOR_BLACK
         MENUITEM "&Red",                        ID_COLOR_RED
         MENUITEM "&Green",                      ID_COLOR_GREEN
-        MENUITEM "B&lue",                       ID_COLOR_BLUE
+        MENUITEM "Bl&ue",                       ID_COLOR_BLUE
     END
     POPUP "&Window"
     BEGIN

@@ -11,11 +11,11 @@ CRectangle::~CRectangle()
 {
 }
 
-void CRectangle::Draw(CDC * pDC)
+void CRectangle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 {
 	//创建一个画笔并初始化
 	CPen aPen;
-	CreatePen(aPen);
+	CreatePen(aPen, pElement);
 
 	//选择一个画笔和空画刷
 	//目前还用不到画刷

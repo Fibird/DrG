@@ -11,11 +11,11 @@ CCircle::~CCircle()
 {
 }
 
-void CCircle::Draw(CDC * pDC)
+void CCircle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 {
 	//创建一个笔然后初始化
 	CPen aPen;
-	CreatePen(aPen);
+	CreatePen(aPen, pElement);
 	CPen *pOldPen{ pDC->SelectObject(&aPen) };  //选择一个笔
 
 	//目前还用不到画刷，所以选择一个空的画笔，然后强制转化成CBrush*型

@@ -11,11 +11,11 @@ CLine::~CLine()
 {
 }
 
-void CLine::Draw(CDC * pDC)
+void CLine::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 {
 	//创建笔并初始化
 	CPen aPen;
-	CreatePen(aPen);
+	CreatePen(aPen, pElement);
 
 	CPen *pOldPen{ pDC->SelectObject(&aPen) };
 

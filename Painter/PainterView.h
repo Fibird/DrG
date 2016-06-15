@@ -58,6 +58,8 @@ protected:
 public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnElementMove();
+	afx_msg void OnElementDelete();
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp
