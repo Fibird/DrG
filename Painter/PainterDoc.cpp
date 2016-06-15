@@ -289,9 +289,6 @@ std::shared_ptr<CElement> CPainterDoc::FindElement(const CPoint& point) const
 		{
 			return pElement;
 		}
-		else
-		{
-			return nullptr;
-		}
 	}
+	return nullptr;
 }

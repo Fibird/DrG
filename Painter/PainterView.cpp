@@ -215,7 +215,11 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 		m_pTempElement = CreateElement();
 		m_pTempElement->Draw(&aDC);
 	}
-	//CView::OnMouseMove(nFlags, point);
+	else
+	{
+		//定位鼠标的位置
+		m_pSelected = GetDocument()->FindElement(point);
+	}
 }
 
 
@@ -253,8 +257,10 @@ void CPainterView::OnInitialUpdate()
 void CPainterView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	CMenu menu;
+	
 	//加载右键菜单
 	menu.LoadMenuW(IDR_RIGHTCLICK_MENU);
+	
 	CMenu *pContext{};
 	
 	ElementColor color{ GetDocument()->GetElementColor() };
@@ -262,13 +268,14 @@ void CPainterView::OnContextMenu(CWnd* pWnd, CPoint point)
 
 	if (m_pSelected)
 	{
-		pContext->GetSubMenu(0);
+		pContext = menu.GetSubMenu(0);
 
 		//标记菜单项
 		menu.CheckMenuItem(ID_COLOR_BLACK, (ElementColor::BLACK == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_RED, (ElementColor::RED == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_GREEN, (ElementColor::GREEN == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_BLUE, (ElementColor::BLUE == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
+
 		menu.CheckMenuItem(ID_ELEMENT_LINE, (ElementType::LINE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_ELEMENT_RECTANGLE, (ElementType::RECTANGLE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_ELEMENT_CIRCLE, (ElementType::CURVE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
@@ -276,12 +283,14 @@ void CPainterView::OnContextMenu(CWnd* pWnd, CPoint point)
 	}
 	else
 	{
-		pContext->GetSubMenu(1);
+		pContext = menu.GetSubMenu(1);
+		
 		//标记菜单项
 		menu.CheckMenuItem(ID_COLOR_BLACK, (ElementColor::BLACK == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_RED, (ElementColor::RED == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_GREEN, (ElementColor::GREEN == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_COLOR_BLUE, (ElementColor::BLUE == color ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
+
 		menu.CheckMenuItem(ID_ELEMENT_LINE, (ElementType::LINE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_ELEMENT_RECTANGLE, (ElementType::RECTANGLE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
 		menu.CheckMenuItem(ID_ELEMENT_CIRCLE, (ElementType::CURVE == element ? MF_CHECKED : MF_UNCHECKED) | MF_BYCOMMAND);
