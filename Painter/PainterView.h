@@ -52,9 +52,12 @@ protected:
 	CPoint m_SecondPoint;	//记录这个图形的第二个点
 	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
+	//指向被选中的图形
+	std::shared_ptr<CElement> m_pSelected;
 	virtual void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint);
 public:
 	virtual void OnInitialUpdate();
+	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

@@ -101,4 +101,5 @@ public:
 	afx_msg void OnUpdateElementCircle(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateElementCurve(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateElementEllipse(CCmdUI *pCmdUI);
+	std::shared_ptr<CElement> FindElement(const CPoint& point) const;
 };

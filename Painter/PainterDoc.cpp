@@ -279,3 +279,19 @@ void CPainterDoc::OnUpdateElementEllipse(CCmdUI *pCmdUI)
 	// Set the menu item checked if current type is ellipse
 	pCmdUI->SetCheck(m_Element == ElementType::ELLIPSE);
 }
+
+
+std::shared_ptr<CElement> CPainterDoc::FindElement(const CPoint& point) const
+{
+	for (const auto& pElement : m_Paint)
+	{
+		if (pElement->GetEnclosingRect().PtInRect(point))
+		{
+			return pElement;
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+}

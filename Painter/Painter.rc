@@ -61,6 +61,64 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_RIGHTCLICK_MENU MENU
+BEGIN
+    POPUP "element"
+    BEGIN
+        MENUITEM "&Move",                       ID_ELEMENT_MOVE
+        MENUITEM "&Delete",                     ID_ELEMENT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "&Line",                       ID_ELEMENT_LINE
+        MENUITEM "&Rectangle",                  ID_ELEMENT_RECTANGLE
+        MENUITEM "&Circle",                     ID_ELEMENT_CIRCLE
+        MENUITEM "C&urve",                      ID_ELEMENT_CURVE
+        MENUITEM "&Ellipse",                    ID_ELEMENT_ELLIPSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Black",                      ID_COLOR_BLACK
+        MENUITEM "&Red",                        ID_COLOR_RED
+        MENUITEM "&Green",                      ID_COLOR_GREEN
+        MENUITEM "B&lue",                       ID_COLOR_BLUE
+    END
+    POPUP "no element"
+    BEGIN
+        MENUITEM "&Line",                       ID_ELEMENT_LINE
+        MENUITEM "&Rectangle",                  ID_ELEMENT_RECTANGLE
+        MENUITEM "&Circle",                     ID_ELEMENT_CIRCLE
+        MENUITEM "C&urve",                      ID_ELEMENT_CURVE
+        MENUITEM "&Ellipse",                    ID_ELEMENT_ELLIPSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Black",                      ID_COLOR_BLACK
+        MENUITEM "&Red",                        ID_COLOR_RED
+        MENUITEM "&Green",                      ID_COLOR_GREEN
+        MENUITEM "B&lue",                       ID_COLOR_BLUE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    ID_ELEMENT_LINE         "draw lines\nlines"
+    ID_ELEMENT_RECTANGLE    "draw rectangles\nrectangle"
+    ID_ELEMENT_CIRCLE       "draw circles\ncircle"
+    ID_ELEMENT_CURVE        "draw curves\ncurve"
+    ID_ELEMENT_ELLIPSE      "draw ellipses\nellipse"
+    ID_COLOR_BLACK          "draw with black\nblack"
+    ID_COLOR_RED            "draw with red\nred"
+    ID_COLOR_GREEN          "draw with green\ngreen"
+    ID_COLOR_BLUE           "draw with blue\nblue"
+END
+
 #endif    // Chinese (Simplified, PRC) resources
 /////////////////////////////////////////////////////////////////////////////
 
