@@ -39,14 +39,16 @@
 #define ID_NOELEMENT_GREEN              32808
 #define ID_NOELEMENT_BLUE               32809
 #define ID_ELEMENT_LINEE                32810
-#define ID_BUTTON32811                  32811
+#define ID_TOOLS_ERASER                 32812
+#define ID_TOOLS_FILLER                 32813
+#define ID_TOOLS_PEN                    32814
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32812
+#define _APS_NEXT_COMMAND_VALUE         32815
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

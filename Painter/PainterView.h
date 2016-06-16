@@ -50,6 +50,11 @@ public:
 protected:
 	CPoint m_FirstPoint;	//记录这个图形的第一个点
 	CPoint m_SecondPoint;	//记录这个图形的第二个点
+	CPoint m_CursorPos;		//光标位置
+	CPoint m_FirstPos;		//以前的位置
+	BOOL use_eraser{ FALSE };		//标记是否使用橡皮
+	BOOL m_MoveMode{ FALSE };		//标记是否是移动模式
+
 	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
 	//指向被选中的图形
@@ -60,6 +65,8 @@ public:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnElementMove();
 	afx_msg void OnElementDelete();
+	afx_msg void OnToolsEraser();
+	afx_msg void OnToolsFiller();
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

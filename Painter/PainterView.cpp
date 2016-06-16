@@ -37,6 +37,8 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_ELEMENT_MOVE, &CPainterView::OnElementMove)
 	ON_COMMAND(ID_ELEMENT_DELETE, &CPainterView::OnElementDelete)
+	ON_COMMAND(ID_TOOLS_ERASER, &CPainterView::OnToolsEraser)
+	ON_COMMAND(ID_TOOLS_FILLER, &CPainterView::OnToolsFiller)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -183,7 +185,6 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 	m_FirstPoint = point;	//记录光标的位置
 	SetCapture();			//捕获随后的鼠标消息
 	//注意必须在OnLButtonUp中释放消息
-	
 }
 
 
@@ -318,7 +319,13 @@ void CPainterView::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CPainterView::OnElementMove()
 {
-	// TODO: Add your command handler code here
+	CClientDC aDC(this);
+	OnPrepareDC(&aDC);
+	GetCursorPos(&m_CursorPos);		//获取光标位置
+	ScreenToClient(&m_CursorPos);
+	aDC.DPtoLP(&m_CursorPos);
+	m_FirstPoint = m_CursorPos;
+	m_MoveMode = TRUE;
 }
 
 
@@ -330,4 +337,24 @@ void CPainterView::OnElementDelete()
 		GetDocument()->DeleteElement(m_pSelected);
 		m_pSelected.reset();
 	}
+}
+
+
+void CPainterView::OnToolsEraser()
+{
+	// TODO: Add your command handler code here
+	if (m_pSelected)
+	{
+		if (MK_LBUTTON)
+		{
+			GetDocument()->DeleteElement(m_pSelected);
+			m_pSelected.reset();
+		}
+	}
+}
+
+
+void CPainterView::OnToolsFiller()
+{
+	// TODO: Add your command handler code here
 }

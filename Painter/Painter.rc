@@ -272,6 +272,12 @@ BEGIN
     BEGIN
         MENUITEM "&About Painter...",           ID_APP_ABOUT
     END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "Eraser",                      ID_TOOLS_ERASER
+        MENUITEM "Filler",                      ID_TOOLS_FILLER
+        MENUITEM "&Pen",                        ID_TOOLS_PEN
+    END
 END
 
 
