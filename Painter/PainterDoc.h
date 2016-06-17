@@ -85,12 +85,14 @@ public:
 	afx_msg void OnColorBlue();
 	ElementType GetElementType() { return m_Element; }
 	ElementColor GetElementColor() { return m_Color; }
+	int GetPenWidth() const { return m_PenWidth; }
 protected:
 	//图形的默认类型为直线 
 	ElementType m_Element = { ElementType::LINE };
 	//图形的默认颜色为黑色
 	ElementColor m_Color = { ElementColor::BLACK };
 	std::list<std::shared_ptr<CElement>> m_Paint;	//使用list数据结构来存储图像
+	int m_PenWidth{};		//当前笔宽	
 public:
 	afx_msg void OnUpdateColorBlack(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateColorRed(CCmdUI *pCmdUI);

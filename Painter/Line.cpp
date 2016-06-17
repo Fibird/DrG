@@ -27,15 +27,17 @@ void CLine::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	pDC->SelectObject(pOldPen);
 }
 
-CLine::CLine(const CPoint& start, const CPoint& end, COLORREF color) :
-	CElement{ start, color }, m_EndPoint{ end }
+CLine::CLine(const CPoint& start, const CPoint& end, COLORREF color, int PenWidth) :
+	CElement{ start, color, PenWidth }, m_EndPoint{ end }
 {
 	//计算界定线条的矩形
 	m_EnclosingRect = CRect{ start, end };
 	//确保边界矩形是规范化的
 	m_EnclosingRect.NormalizeRect();
+	//使边界矩形的线宽至少为1
+	int width{ PenWidth == 0 ? 1 : PenWidth };
 	//定义线条的边界矩形
-	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
+	m_EnclosingRect.InflateRect(width, width);
 }
 
 void CLine::Move(const CSize & aSize)

@@ -35,8 +35,8 @@ void CCircle::Move(const CSize & aSize)
 	m_EnclosingRect += aSize;
 }
 
-CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color) :
-	CElement{ start, color }
+CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color, int PenWidth) :
+	CElement{ start, color, PenWidth }
 {
 	//计算圆的半径
 	long radius{ static_cast<long> (sqrt(
@@ -50,8 +50,8 @@ CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color) :
 	//计算MM_TEXT模式下包围圆的矩形的两点
 	m_StartPoint = CPoint{ start.x - radius, start.y - radius };
 	m_BottomRight = CPoint{ start.x + radius, start.y + radius };
-
+	int width{ PenWidth == 0 ? 1 : PenWidth };
 	//定义边界矩形
 	m_EnclosingRect = CRect{ m_StartPoint.x, m_StartPoint.y, m_BottomRight.x, m_BottomRight.y };
-	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
+	m_EnclosingRect.InflateRect(width, width);
 }

@@ -125,20 +125,20 @@ std::shared_ptr<CElement> CPainterView::CreateElement() const
 
 	//获得当前图形的颜色
 	COLORREF color{ static_cast<COLORREF>(pDoc->GetElementColor()) };
-
+	int PenWidth{ pDoc->GetPenWidth() };
 	//根据存储在文档中的图形类型来选择图形
 	switch (pDoc->GetElementType())
 	{
 	case ElementType::RECTANGLE:
-		return std::make_shared<CRectangle>(m_FirstPoint, m_SecondPoint, color);
+		return std::make_shared<CRectangle>(m_FirstPoint, m_SecondPoint, color, PenWidth);
 	case ElementType::CIRCLE:
-		return std::make_shared<CCircle>(m_FirstPoint, m_SecondPoint, color);
+		return std::make_shared<CCircle>(m_FirstPoint, m_SecondPoint, color, PenWidth);
 	case ElementType::CURVE:
-		return std::make_shared<CCurve>(m_FirstPoint, m_SecondPoint, color);
+		return std::make_shared<CCurve>(m_FirstPoint, m_SecondPoint, color, PenWidth);
 	case ElementType::LINE:
-		return std::make_shared<CLine>(m_FirstPoint, m_SecondPoint, color);
+		return std::make_shared<CLine>(m_FirstPoint, m_SecondPoint, color, PenWidth);
 	case ElementType::ELLIPSE:
-		return std::make_shared<CEllipse>(m_FirstPoint, m_SecondPoint, color);
+		return std::make_shared<CEllipse>(m_FirstPoint, m_SecondPoint, color, PenWidth);
 	default:
 		AfxMessageBox(_T("Bad Element code"), MB_OK);
 		AfxAbort();

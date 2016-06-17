@@ -294,9 +294,13 @@ std::shared_ptr<CElement> CPainterDoc::FindElement(const CPoint& point) const
 	return nullptr;
 }
 
-
 void CPainterDoc::OnSettingsPenwidths()
 {
 	CPenDialog aDlg;
-	aDlg.DoModal();
+
+	aDlg.m_PenWidth = m_PenWidth;
+	if (aDlg.DoModal() == IDOK)
+	{
+		m_PenWidth = aDlg.m_PenWidth;
+	}
 }

@@ -36,8 +36,8 @@ void CEllipse::Move(const CSize & aSize)
 	m_EnclosingRect += aSize;
 }
 
-CEllipse::CEllipse(const CPoint & center, const CPoint & end, COLORREF color) :
-	CElement{ center, color }
+CEllipse::CEllipse(const CPoint & center, const CPoint & end, COLORREF color, int PenWidth) :
+	CElement{ center, color, PenWidth }
 {
 	//创建包围椭圆的矩形
 	int halfWidth{ abs(center.x - end.x) };		//得到矩形的宽的一半
@@ -56,8 +56,9 @@ CEllipse::CEllipse(const CPoint & center, const CPoint & end, COLORREF color) :
 	{
 		m_BottomRight.y += 2;
 	}
+	int width = { PenWidth == 0 ? 1 : PenWidth };
 	//定义边界矩形
 	m_EnclosingRect = CRect{ m_StartPoint, m_BottomRight };
 	m_EnclosingRect.NormalizeRect();
-	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
+	m_EnclosingRect.InflateRect(width, width);
 }

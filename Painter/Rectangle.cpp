@@ -36,8 +36,8 @@ void CRectangle::Move(const CSize & aSize)
 	m_EnclosingRect += aSize;
 }
 
-CRectangle::CRectangle(const CPoint & start, const CPoint & end, COLORREF color) :
-	CElement{ start, color }
+CRectangle::CRectangle(const CPoint & start, const CPoint & end, COLORREF color, int PenWidth) :
+	CElement{ start, color, PenWidth }
 {
 	//规范化矩形的点
 	m_StartPoint = CPoint{ (std::min)(start.x, end.x), (std::min)(start.y, end.y) };
@@ -52,8 +52,8 @@ CRectangle::CRectangle(const CPoint & start, const CPoint & end, COLORREF color)
 	{
 		m_BottomRight.y = m_StartPoint.y + 2;
 	}
-
+	int width = { PenWidth == 0 ? 1 : PenWidth };
 	//定义矩形的边界矩形
 	m_EnclosingRect = CRect{ m_StartPoint, m_BottomRight };
-	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
+	m_EnclosingRect.InflateRect(width, width);
 }

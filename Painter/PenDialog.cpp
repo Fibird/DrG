@@ -24,6 +24,9 @@ CPenDialog::~CPenDialog()
 void CPenDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_PENWIDTH, m_PenWidth);
+	DDV_MinMaxInt(pDX, m_PenWidth, 0, 10);
+	DDX_Control(pDX, IDC_SPIN_PENWIDTH, m_Spin);
 }
 
 
