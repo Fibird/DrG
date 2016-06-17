@@ -10,7 +10,7 @@
 #endif
 
 #include "PainterDoc.h"
-
+#include "PenDialog.h"
 #include <propkey.h>
 
 #ifdef _DEBUG
@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(CPainterDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_ELEMENT_CIRCLE, &CPainterDoc::OnUpdateElementCircle)
 	ON_UPDATE_COMMAND_UI(ID_ELEMENT_CURVE, &CPainterDoc::OnUpdateElementCurve)
 	ON_UPDATE_COMMAND_UI(ID_ELEMENT_ELLIPSE, &CPainterDoc::OnUpdateElementEllipse)
+	ON_COMMAND(ID_SETTINGS_PENWIDTHS, &CPainterDoc::OnSettingsPenwidths)
 END_MESSAGE_MAP()
 
 
@@ -291,4 +292,11 @@ std::shared_ptr<CElement> CPainterDoc::FindElement(const CPoint& point) const
 		}
 	}
 	return nullptr;
+}
+
+
+void CPainterDoc::OnSettingsPenwidths()
+{
+	CPenDialog aDlg;
+	aDlg.DoModal();
 }

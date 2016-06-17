@@ -104,6 +104,54 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Dialog
+//
+
+IDD_PENWIDTH_DLG DIALOGEX 0, 0, 217, 88
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Pen Width"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,143,26,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,143,47,50,14
+    CONTROL         "",IDC_SPIN2,"msctls_updown32",UDS_ARROWKEYS,112,36,10,14
+    EDITTEXT        IDC_EDIT2,68,36,44,14,ES_AUTOHSCROLL
+    LTEXT           "Pen Widths:",IDC_STATIC,22,39,40,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PENWIDTH_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 204
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 81
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_PENWIDTH_DLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -138,9 +186,157 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\Painter.ico"
+IDR_MAINFRAME           ICON                    "res\\m_painter.ico"
 
 IDR_PainterTYPE         ICON                    "res\\PainterDoc.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Painter...",           ID_APP_ABOUT
+    END
+END
+
+IDR_PainterTYPE MENUEX
+BEGIN
+    POPUP "&File",                          65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Close",                      ID_FILE_CLOSE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE,MFT_STRING,MFS_ENABLED
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT,MFT_STRING,MFS_ENABLED
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1,MFT_STRING,MFS_GRAYED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&Edit",                          65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO,MFT_STRING,MFS_ENABLED
+        MENUITEM MFT_SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE,MFT_STRING,MFS_ENABLED
+        MENUITEM "C&ancel\tESC",                ID_EDIT_CANCEL,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&View",                          65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "E&lement",                       65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&Line",                       ID_ELEMENT_LINE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Rectangle",                  ID_ELEMENT_RECTANGLE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Circle",                     ID_ELEMENT_CIRCLE,MFT_STRING,MFS_ENABLED
+        MENUITEM "C&urve",                      ID_ELEMENT_CURVE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Ellipse",                    ID_ELEMENT_ELLIPSE,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&Color",                         65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&Black",                      ID_COLOR_BLACK,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Red",                        ID_COLOR_RED,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Green",                      ID_COLOR_GREEN,MFT_STRING,MFS_ENABLED
+        MENUITEM "Bl&ue",                       ID_COLOR_BLUE,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&Window",                        65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&New Window",                 ID_WINDOW_NEW,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&Tools",                         65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "Eraser",                      ID_TOOLS_ERASER,MFT_STRING,MFS_ENABLED
+        MENUITEM "Filler",                      ID_TOOLS_FILLER,MFT_STRING,MFS_ENABLED
+        MENUITEM "&Pen",                        ID_TOOLS_PEN,MFT_STRING,MFS_ENABLED
+    END
+    POPUP "&Settings",                      65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "Pen Widths",                  ID_SETTINGS_PENWIDTHS,MFT_STRING | MFT_RIGHTJUSTIFY,MFS_ENABLED
+    END
+    POPUP "&Help",                          65535,MFT_STRING,MFS_ENABLED
+    BEGIN
+        MENUITEM "&About Painter...",           ID_APP_ABOUT,MFT_STRING,MFS_ENABLED
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Painter"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "Painter, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) Chaoyang Liu 2016",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -188,103 +384,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Menu
-//
-
-IDR_MAINFRAME MENU
-BEGIN
-    POPUP "&File"
-    BEGIN
-        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
-        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
-        MENUITEM "&Close",                      ID_FILE_CLOSE
-        MENUITEM SEPARATOR
-        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
-        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
-        MENUITEM SEPARATOR
-        MENUITEM "E&xit",                       ID_APP_EXIT
-    END
-    POPUP "&View"
-    BEGIN
-        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
-        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
-    END
-    POPUP "&Help"
-    BEGIN
-        MENUITEM "&About Painter...",           ID_APP_ABOUT
-    END
-END
-
-IDR_PainterTYPE MENU
-BEGIN
-    POPUP "&File"
-    BEGIN
-        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
-        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
-        MENUITEM "&Close",                      ID_FILE_CLOSE
-        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
-        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
-        MENUITEM SEPARATOR
-        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
-        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
-        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
-        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
-        MENUITEM SEPARATOR
-        MENUITEM "E&xit",                       ID_APP_EXIT
-    END
-    POPUP "&Edit"
-    BEGIN
-        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
-        MENUITEM SEPARATOR
-        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
-        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
-        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
-        MENUITEM "C&ancel\tESC",                ID_EDIT_CANCEL
-    END
-    POPUP "&View"
-    BEGIN
-        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
-        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
-    END
-    POPUP "E&lement"
-    BEGIN
-        MENUITEM "&Line",                       ID_ELEMENT_LINE
-        MENUITEM "&Rectangle",                  ID_ELEMENT_RECTANGLE
-        MENUITEM "&Circle",                     ID_ELEMENT_CIRCLE
-        MENUITEM "C&urve",                      ID_ELEMENT_CURVE
-        MENUITEM "&Ellipse",                    ID_ELEMENT_ELLIPSE
-    END
-    POPUP "&Color"
-    BEGIN
-        MENUITEM "&Black",                      ID_COLOR_BLACK
-        MENUITEM "&Red",                        ID_COLOR_RED
-        MENUITEM "&Green",                      ID_COLOR_GREEN
-        MENUITEM "Bl&ue",                       ID_COLOR_BLUE
-    END
-    POPUP "&Window"
-    BEGIN
-        MENUITEM "&New Window",                 ID_WINDOW_NEW
-        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
-        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
-    END
-    POPUP "&Help"
-    BEGIN
-        MENUITEM "&About Painter...",           ID_APP_ABOUT
-    END
-    POPUP "&Tools"
-    BEGIN
-        MENUITEM "Eraser",                      ID_TOOLS_ERASER
-        MENUITEM "Filler",                      ID_TOOLS_FILLER
-        MENUITEM "&Pen",                        ID_TOOLS_PEN
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Accelerator
 //
 
@@ -310,23 +409,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Dialog
-//
-
-IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About Painter"
-FONT 8, "MS Shell Dlg", 0, 0, 0x1
-BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "Painter, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2016",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Version
 //
 
@@ -345,15 +427,15 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "040904B0"
+        BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "Painter"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "Painter.exe"
-            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "LegalCopyright", "TODO: (c) <Chaoyang Liu>.  All rights reserved."
             VALUE "OriginalFilename", "Painter.exe"
-            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductName", "TODO: <Painter>"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -362,25 +444,6 @@ BEGIN
         VALUE "Translation", 0x409, 1200
     END
 END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    IDD_ABOUTBOX, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 163
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 55
-    END
-END
-#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -533,6 +596,11 @@ BEGIN
     ID_ERASER_BUTTON        "eraser\neraser"
     ID_PEN_BUTTON           "pen\npen"
     ID_FILL_BUTTON          "filler\nfiller"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SETTINGS_PENWIDTHS   "Set Pen Widths"
 END
 
 #endif    // English (United States) resources

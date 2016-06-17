@@ -171,6 +171,7 @@ protected:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+	virtual void OnOK();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -196,3 +197,11 @@ void CPainterApp::OnAppAbout()
 
 
 
+
+
+void CAboutDlg::OnOK()
+{
+	// TODO: Add your specialized code here and/or call the base class
+
+	CDialogEx::OnOK();
+}

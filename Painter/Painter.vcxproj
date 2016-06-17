@@ -197,6 +197,7 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="PainterDoc.h" />
     <ClInclude Include="PainterView.h" />
+    <ClInclude Include="PenDialog.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="PainterDoc.cpp" />
     <ClCompile Include="PainterView.cpp" />
+    <ClCompile Include="PenDialog.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -231,6 +233,7 @@
     <ResourceCompile Include="Painter.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\m_painter.ico" />
     <Image Include="res\Painter.ico" />
     <Image Include="res\PainterDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

@@ -66,6 +66,9 @@
     <ClInclude Include="Ellipse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PenDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Painter.cpp">
@@ -104,6 +107,9 @@
     <ClCompile Include="Ellipse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PenDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Painter.reg" />
@@ -126,6 +132,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\m_painter.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
