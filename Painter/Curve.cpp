@@ -27,6 +27,16 @@ void CCurve::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	pDC->SelectObject(pOldPen);
 }
 
+void CCurve::Move(const CSize & aSize)
+{
+	m_StartPoint += aSize;
+	m_EnclosingRect += aSize;
+	for (auto &p : m_Points)
+	{
+		p += aSize;
+	}
+}
+
 CCurve::CCurve(const CPoint & first, const CPoint & second, COLORREF color) :
 	CElement{ first, color }
 {

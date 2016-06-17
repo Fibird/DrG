@@ -29,6 +29,13 @@ void CEllipse::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	pDC->SelectObject(pOldBrush);
 }
 
+void CEllipse::Move(const CSize & aSize)
+{
+	m_StartPoint += aSize;
+	m_BottomRight += aSize;
+	m_EnclosingRect += aSize;
+}
+
 CEllipse::CEllipse(const CPoint & center, const CPoint & end, COLORREF color) :
 	CElement{ center, color }
 {

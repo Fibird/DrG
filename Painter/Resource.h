@@ -42,13 +42,16 @@
 #define ID_TOOLS_ERASER                 32812
 #define ID_TOOLS_FILLER                 32813
 #define ID_TOOLS_PEN                    32814
+#define ID_EDIT_CANCEL                  32815
+#define ID_ELEMENT_CANCEL               32816
+#define ID_ACCELERATOR32820             32820
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32815
+#define _APS_NEXT_RESOURCE_VALUE        313
+#define _APS_NEXT_COMMAND_VALUE         32822
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

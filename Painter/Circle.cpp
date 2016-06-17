@@ -28,6 +28,13 @@ void CCircle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	pDC->SelectObject(pOldBrush);
 }
 
+void CCircle::Move(const CSize & aSize)
+{
+	m_StartPoint += aSize;
+	m_BottomRight += aSize;
+	m_EnclosingRect += aSize;
+}
+
 CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color) :
 	CElement{ start, color }
 {

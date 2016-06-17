@@ -15,7 +15,7 @@ public:
 	//CElement();
 	virtual ~CElement();
 	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) {}	//这里Draw类型为虚函数
-
+	virtual void Move(const CSize &aSize) {}
 	//获取界定图形占用区域的矩形
 	const CRect& GetEnclosingRect() const { return m_EnclosingRect; }
 protected:

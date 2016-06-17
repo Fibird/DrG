@@ -29,6 +29,13 @@ void CRectangle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	pDC->SelectObject(pOldBrush);
 }
 
+void CRectangle::Move(const CSize & aSize)
+{
+	m_StartPoint += aSize;
+	m_BottomRight += aSize;
+	m_EnclosingRect += aSize;
+}
+
 CRectangle::CRectangle(const CPoint & start, const CPoint & end, COLORREF color) :
 	CElement{ start, color }
 {

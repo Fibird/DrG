@@ -72,7 +72,8 @@ BEGIN
     POPUP "element"
     BEGIN
         MENUITEM "&Move",                       ID_ELEMENT_MOVE
-        MENUITEM "&Delete",                     ID_ELEMENT_DELETE
+        MENUITEM "&Delete\tCtrl+D",             ID_ELEMENT_DELETE
+        MENUITEM "C&ancel\tESC",                ID_ELEMENT_CANCEL
         MENUITEM SEPARATOR
         MENUITEM "&Line",                       ID_ELEMENT_LINE
         MENUITEM "&Rectangle",                  ID_ELEMENT_RECTANGLE
@@ -81,9 +82,9 @@ BEGIN
         MENUITEM "&Ellipse",                    ID_ELEMENT_ELLIPSE
         MENUITEM SEPARATOR
         MENUITEM "&Black",                      ID_COLOR_BLACK
-        MENUITEM "&Red",                        ID_COLOR_RED
+        MENUITEM "Red",                         ID_COLOR_RED
         MENUITEM "&Green",                      ID_COLOR_GREEN
-        MENUITEM "Bl&ue",                       ID_COLOR_BLUE
+        MENUITEM "Blue",                        ID_COLOR_BLUE
     END
     POPUP "no element"
     BEGIN
@@ -174,8 +175,8 @@ BEGIN
     BUTTON      ID_ELEMENT_ELLIPSE
     BUTTON      ID_ELEMENT_CURVE
     SEPARATOR
-    BUTTON      ID_ERASER_BUTTON
-    BUTTON      ID_ELEMENT_CURVE
+    BUTTON      ID_TOOLS_ERASER
+    BUTTON      ID_TOOLS_PEN
     BUTTON      ID_FILL_BUTTON
     SEPARATOR
     BUTTON      ID_COLOR_BLACK
@@ -240,6 +241,7 @@ BEGIN
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "C&ancel\tESC",                ID_EDIT_CANCEL
     END
     POPUP "&View"
     BEGIN
@@ -288,20 +290,21 @@ END
 
 IDR_MAINFRAME ACCELERATORS
 BEGIN
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
-    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
-    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
-    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_ESCAPE,      ID_ELEMENT_CANCEL,      VIRTKEY, NOINVERT
 END
 
 

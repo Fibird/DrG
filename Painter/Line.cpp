@@ -37,3 +37,10 @@ CLine::CLine(const CPoint& start, const CPoint& end, COLORREF color) :
 	//定义线条的边界矩形
 	m_EnclosingRect.InflateRect(m_PenWidth, m_PenWidth);
 }
+
+void CLine::Move(const CSize & aSize)
+{
+	m_StartPoint += aSize;
+	m_EndPoint += aSize;
+	m_EnclosingRect += aSize;
+}

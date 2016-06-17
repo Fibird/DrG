@@ -39,6 +39,8 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_COMMAND(ID_ELEMENT_DELETE, &CPainterView::OnElementDelete)
 	ON_COMMAND(ID_TOOLS_ERASER, &CPainterView::OnToolsEraser)
 	ON_COMMAND(ID_TOOLS_FILLER, &CPainterView::OnToolsFiller)
+	ON_COMMAND(ID_ELEMENT_CANCEL, &CPainterView::OnElementCancel)
+	ON_COMMAND(ID_TOOLS_PEN, &CPainterView::OnToolsPen)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -182,9 +184,28 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 	CClientDC aDC{ this };	//创建设备上下文
 	OnPrepareDC(&aDC);		//调节原点位置
 	aDC.DPtoLP(&point);		//转化为逻辑坐标
-	m_FirstPoint = point;	//记录光标的位置
-	SetCapture();			//捕获随后的鼠标消息
-	//注意必须在OnLButtonUp中释放消息
+	if (m_MoveMode)
+	{
+		m_MoveMode = FALSE;
+
+		auto pElement (m_pSelected);
+		m_pSelected.reset();
+		GetDocument()->UpdateAllViews(nullptr, 0, pElement.get());
+	}
+	else if (use_eraser)
+	{
+		if (m_pSelected)
+		{
+			GetDocument()->DeleteElement(m_pSelected);
+			m_pSelected.reset();
+		}
+	}
+	else
+	{
+		m_FirstPoint = point;	//记录光标的位置
+		SetCapture();			//捕获随后的鼠标消息
+								//注意必须在OnLButtonUp中释放消息
+	}
 }
 
 
@@ -195,7 +216,11 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	OnPrepareDC(&aDC);
 	aDC.DPtoLP(&point);
 	//首先要判断是否按下鼠标左键以及是否成功捕捉鼠标
-	if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
+	if (m_MoveMode)
+	{
+		MoveElement(aDC, point);
+	}
+	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
 	{
 		m_SecondPoint = point;
 		if (m_pTempElement)
@@ -342,19 +367,55 @@ void CPainterView::OnElementDelete()
 
 void CPainterView::OnToolsEraser()
 {
-	// TODO: Add your command handler code here
-	if (m_pSelected)
-	{
-		if (MK_LBUTTON)
-		{
-			GetDocument()->DeleteElement(m_pSelected);
-			m_pSelected.reset();
-		}
-	}
+	//使用橡皮擦
+	use_eraser = TRUE;
+	//不能同时处在m_MoveMode
+	m_MoveMode = FALSE;
 }
 
 
 void CPainterView::OnToolsFiller()
 {
 	// TODO: Add your command handler code here
+}
+
+
+void CPainterView::MoveElement(CClientDC& aDC, const CPoint& point)
+{
+	CSize distance{ point - m_CursorPos };		//计算移动距离
+
+	m_CursorPos = point;
+	if (m_pSelected)
+	{
+		CPainterDoc *pDoc{ GetDocument() };
+
+		pDoc->UpdateAllViews(this, 0L, m_pSelected.get());
+		aDC.SetROP2(R2_NOTXORPEN);
+		m_pSelected->Draw(&aDC, m_pSelected);
+		m_pSelected->Move(distance);
+		m_pSelected->Draw(&aDC, m_pSelected);
+		pDoc->UpdateAllViews(this, 0L, m_pSelected.get());
+	}
+}
+
+
+void CPainterView::OnElementCancel()
+{
+	//取消操作
+	if (m_MoveMode)
+	{
+		CClientDC aDC{ this };
+		m_MoveMode = FALSE;
+		OnPrepareDC(&aDC);
+		MoveElement(aDC, m_FirstPoint);
+		m_pSelected.reset();
+		GetDocument()->UpdateAllViews(nullptr);
+	}
+}
+
+
+void CPainterView::OnToolsPen()
+{
+	//取消橡皮擦
+	use_eraser = FALSE;
 }

@@ -67,6 +67,11 @@ public:
 	afx_msg void OnElementDelete();
 	afx_msg void OnToolsEraser();
 	afx_msg void OnToolsFiller();
+protected:
+	void MoveElement(CClientDC& aDC, const CPoint& point);
+public:
+	afx_msg void OnElementCancel();
+	afx_msg void OnToolsPen();
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp
