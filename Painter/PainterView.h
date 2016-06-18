@@ -54,7 +54,7 @@ protected:
 	CPoint m_FirstPos;		//以前的位置
 	BOOL use_eraser{ FALSE };		//标记是否使用橡皮
 	BOOL m_MoveMode{ FALSE };		//标记是否是移动模式
-
+	BOOL use_filler{ FALSE };
 	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
 	//指向被选中的图形
@@ -72,6 +72,8 @@ protected:
 public:
 	afx_msg void OnElementCancel();
 	afx_msg void OnToolsPen();
+	afx_msg void OnEditCopy();
+	afx_msg void OnEditPaste();
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

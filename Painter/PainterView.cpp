@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_COMMAND(ID_TOOLS_FILLER, &CPainterView::OnToolsFiller)
 	ON_COMMAND(ID_ELEMENT_CANCEL, &CPainterView::OnElementCancel)
 	ON_COMMAND(ID_TOOLS_PEN, &CPainterView::OnToolsPen)
+	ON_COMMAND(ID_EDIT_COPY, &CPainterView::OnEditCopy)
+	ON_COMMAND(ID_EDIT_PASTE, &CPainterView::OnEditPaste)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -200,6 +202,16 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 			m_pSelected.reset();
 		}
 	}
+	else if (use_filler)
+	{
+		m_pSelected.get()->Filler = TRUE;
+		COLORREF color{ static_cast<COLORREF>(GetDocument()->GetElementColor()) };
+		m_pSelected.get()->m_Color = color;
+		auto pElement(m_pSelected);
+		m_pSelected.reset();
+		GetDocument()->UpdateAllViews(nullptr, 0, pElement.get());
+		use_filler = FALSE;
+	}
 	else
 	{
 		m_FirstPoint = point;	//记录光标的位置
@@ -215,12 +227,12 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	CClientDC aDC{ this };
 	OnPrepareDC(&aDC);
 	aDC.DPtoLP(&point);
-	//首先要判断是否按下鼠标左键以及是否成功捕捉鼠标
+	
 	if (m_MoveMode)
 	{
 		MoveElement(aDC, point);
 	}
-	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()))
+	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()))	//判断是否按下鼠标左键以及是否成功捕捉鼠标
 	{
 		m_SecondPoint = point;
 		if (m_pTempElement)
@@ -371,12 +383,18 @@ void CPainterView::OnToolsEraser()
 	use_eraser = TRUE;
 	//不能同时处在m_MoveMode
 	m_MoveMode = FALSE;
+	use_filler = FALSE;
 }
 
 
 void CPainterView::OnToolsFiller()
 {
 	// TODO: Add your command handler code here
+	//使用填充
+	use_filler = TRUE;
+	//不能同时处在m_MoveMode
+	m_MoveMode = FALSE;
+	use_eraser = FALSE;
 }
 
 
@@ -418,4 +436,35 @@ void CPainterView::OnToolsPen()
 {
 	//取消橡皮擦
 	use_eraser = FALSE;
+}
+
+
+void CPainterView::OnEditCopy()
+{
+	//复制图形
+	if (m_pSelected)
+	{
+		//auto *m_pTempElement = *m_pSelected;
+	}
+}
+
+
+void CPainterView::OnEditPaste()
+{
+	//创建设备上下文
+	CClientDC aDC{ this };
+	//粘贴图形
+	if (m_pTempElement)
+	{
+		m_pTempElement->Draw(&aDC, m_pTempElement);
+		CRect aRect{ m_pTempElement->GetEnclosingRect() };	//获取边界矩形
+															//把最终的图形添加到文档对象中显示
+		GetDocument()->AddElement(m_pTempElement);
+
+		CClientDC aDC{ this };
+		OnPrepareDC(&aDC);
+		aDC.LPtoDP(aRect);
+		InvalidateRect(aRect);
+		m_pTempElement.reset();
+	}
 }

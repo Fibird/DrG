@@ -72,7 +72,7 @@ BEGIN
     POPUP "element"
     BEGIN
         MENUITEM "&Move",                       ID_ELEMENT_MOVE
-        MENUITEM "&Delete\tCtrl+D",             ID_ELEMENT_DELETE
+        MENUITEM "&Delete",                     ID_ELEMENT_DELETE
         MENUITEM "C&ancel\tESC",                ID_ELEMENT_CANCEL
         MENUITEM SEPARATOR
         MENUITEM "&Line",                       ID_ELEMENT_LINE
@@ -119,6 +119,16 @@ BEGIN
     LTEXT           "Pen Width:",IDC_STATIC,29,38,38,12
 END
 
+IDD_SCALE_DLG DIALOGEX 0, 0, 259, 65
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Drawing Scale"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SCALE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,65,25,100,15
+    PUSHBUTTON      "default",IDC_DEFAULT_BUTTON,181,26,50,14
+    CTEXT           "View Scale:",IDC_STATIC,27,30,36,10
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -135,6 +145,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 81
     END
+
+    IDD_SCALE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 252
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 58
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -145,6 +163,11 @@ END
 //
 
 IDD_PENWIDTH_DLG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SCALE_DLG AFX_DIALOG_LAYOUT
 BEGIN
     0
 END
@@ -178,18 +201,6 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\m_painter.ico"
-
-IDR_PainterTYPE         ICON                    "res\\PainterDoc.ico"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -284,6 +295,7 @@ BEGIN
     POPUP "&Settings",                      65535,MFT_STRING,MFS_ENABLED
     BEGIN
         MENUITEM "Pen Widths",                  ID_SETTINGS_PENWIDTHS,MFT_STRING | MFT_RIGHTJUSTIFY,MFS_ENABLED
+        MENUITEM "Drawing Scale",               ID_SETTINGS_DRAWINGSCALE,MFT_STRING,MFS_ENABLED
     END
     POPUP "&Help",                          65535,MFT_STRING,MFS_ENABLED
     BEGIN
@@ -341,6 +353,18 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\m_painter.ico"
+
+IDR_PainterTYPE         ICON                    "res\\PainterDoc.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Bitmap
 //
 
@@ -373,7 +397,7 @@ BEGIN
     SEPARATOR
     BUTTON      ID_TOOLS_ERASER
     BUTTON      ID_TOOLS_PEN
-    BUTTON      ID_FILL_BUTTON
+    BUTTON      ID_TOOLS_FILLER
     SEPARATOR
     BUTTON      ID_COLOR_BLACK
     BUTTON      ID_COLOR_RED
@@ -397,13 +421,14 @@ BEGIN
     VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
     VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    VK_ESCAPE,      ID_ELEMENT_CANCEL,      VIRTKEY, NOINVERT
+    VK_DELETE,      ID_ELEMENT_DELETE,      VIRTKEY, NOINVERT
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
     "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
-    VK_ESCAPE,      ID_ELEMENT_CANCEL,      VIRTKEY, NOINVERT
 END
 
 

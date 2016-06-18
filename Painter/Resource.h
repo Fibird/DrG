@@ -10,9 +10,12 @@
 #define IDR_RIGHTCLICK_MENU             310
 #define IDD_PENWIDTH_DLG                314
 #define IDI_ICON1                       316
+#define IDD_SCALE_DLG                   317
 #define IDC_SPIN2                       1009
 #define IDC_PENWIDTH                    1010
 #define IDC_SPIN_PENWIDTH               1011
+#define IDC_SCALE_SLIDER                1012
+#define IDC_DEFAULT_BUTTON              1013
 #define ID_ELEMENT_LINE                 32771
 #define ID_ELEMENT_RECTANGLE            32772
 #define ID_ELEMENT_CIRCLE               32773
@@ -50,14 +53,15 @@
 #define ID_EDIT_CANCEL                  32815
 #define ID_ELEMENT_CANCEL               32816
 #define ID_SETTINGS_PENWIDTHS           32822
+#define ID_SETTINGS_DRAWINGSCALE        32823
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        317
-#define _APS_NEXT_COMMAND_VALUE         32823
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_RESOURCE_VALUE        319
+#define _APS_NEXT_COMMAND_VALUE         32827
+#define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

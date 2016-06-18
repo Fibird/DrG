@@ -9,8 +9,11 @@ class CElement : public CObject
 protected:
 	CPoint m_StartPoint;
 	int m_PenWidth;		//笔宽
-	COLORREF m_Color;	//图形颜色
+	//COLORREF m_Color;	//图形颜色
 	CRect m_EnclosingRect;	//包围图形的矩形
+public:
+	BOOL Filler{ FALSE };
+	COLORREF m_Color;	//图形颜色
 public:
 	//CElement();
 	virtual ~CElement();
@@ -28,6 +31,16 @@ protected:
 		{
 			//笔创建失败
 			AfxMessageBox(_T("笔创建失败！"), MB_OK);
+			AfxAbort();
+		}
+	}
+
+	void CreateBrush(CBrush& aBrush, std::shared_ptr<CElement> pElement = nullptr)
+	{
+		if (!aBrush.CreateSolidBrush(this == pElement.get() ? SELECT_COLOR : m_Color))
+		{
+			//画刷创建失败
+			AfxMessageBox(_T("画刷创建失败！"), MB_OK);
 			AfxAbort();
 		}
 	}

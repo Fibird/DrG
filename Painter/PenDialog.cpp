@@ -43,3 +43,14 @@ void CPenDialog::OnOK()
 
 	CDialogEx::OnOK();
 }
+
+
+BOOL CPenDialog::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_Spin.SetRange(0, 10);
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // EXCEPTION: OCX Property Pages should return FALSE
+}

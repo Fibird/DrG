@@ -16,10 +16,19 @@ void CEllipse::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	//创建一个画笔并初始化
 	CPen aPen;
 	CreatePen(aPen, pElement);
-
+	CBrush aBrush;
+	CreateBrush(aBrush, pElement);
 	CPen* pOldPen{ pDC->SelectObject(&aPen) };
-
-	CBrush* pOldBrush{ dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH)) };
+	CBrush* pOldBrush;
+	//如果按下填充按钮则选择实心画刷，否则选择空画刷
+	if (Filler)
+	{
+		pOldBrush = pDC->SelectObject(&aBrush);
+	}
+	else
+	{
+		pOldBrush = dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH));
+	}
 
 	//画圆
 	pDC->Ellipse(m_StartPoint.x, m_StartPoint.y,

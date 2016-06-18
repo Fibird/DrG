@@ -21,4 +21,6 @@ protected:
 	CSpinButtonCtrl m_Spin;	
 	DECLARE_MESSAGE_MAP()
 	virtual void OnOK();
+public:
+	virtual BOOL OnInitDialog();
 };

@@ -16,12 +16,19 @@ void CRectangle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 	//创建一个画笔并初始化
 	CPen aPen;
 	CreatePen(aPen, pElement);
-
-	//选择一个画笔和空画刷
-	//目前还用不到画刷
+	CBrush aBrush;
+	CreateBrush(aBrush, pElement);
 	CPen *pOldPen{ pDC->SelectObject(&aPen) };
-	CBrush *pOldBrush{ dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH)) };
-
+	CBrush *pOldBrush;
+	//如果按下填充按钮则选择实心画刷，否则选择空画刷
+	if (Filler)
+	{
+		pOldBrush = pDC->SelectObject(&aBrush);
+	}
+	else
+	{
+		pOldBrush = dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH));
+	}
 	//画这个矩形
 	pDC->Rectangle(m_StartPoint.x, m_StartPoint.y, m_BottomRight.x, m_BottomRight.y);
 	//保存旧画笔与画刷

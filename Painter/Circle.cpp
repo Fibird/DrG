@@ -15,12 +15,21 @@ void CCircle::Draw(CDC * pDC, std::shared_ptr<CElement> pElement)
 {
 	//创建一个笔然后初始化
 	CPen aPen;
+	CBrush aBrush;
 	CreatePen(aPen, pElement);
 	CPen *pOldPen{ pDC->SelectObject(&aPen) };  //选择一个笔
-
-	//目前还用不到画刷，所以选择一个空的画笔，然后强制转化成CBrush*型
-	CBrush *pOldBrush{ dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH)) };
-
+	CBrush *pOldBrush;
+	//如果按下填充按钮则选择实心画刷，否则选择空画刷
+	if (Filler)
+	{
+		CreateBrush(aBrush, pElement);
+		pOldBrush = pDC->SelectObject(&aBrush);
+	}
+	else
+	{
+		pOldBrush = dynamic_cast<CBrush*>(pDC->SelectStockObject(NULL_BRUSH));
+	}
+	
 	//使用短轴和长轴相等的椭圆来绘制圆
 	pDC->Ellipse(m_StartPoint.x, m_StartPoint.y, m_BottomRight.x, m_BottomRight.y);
 	//保存以前的笔和画笔
