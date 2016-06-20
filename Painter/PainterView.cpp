@@ -194,15 +194,12 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 		m_pSelected.reset();
 		GetDocument()->UpdateAllViews(nullptr, 0, pElement.get());
 	}
-	else if (use_eraser)
+	else if (use_eraser && m_pSelected)
 	{
-		if (m_pSelected)
-		{
-			GetDocument()->DeleteElement(m_pSelected);
-			m_pSelected.reset();
-		}
+		GetDocument()->DeleteElement(m_pSelected);
+		m_pSelected.reset();
 	}
-	else if (use_filler)
+	else if (use_filler && m_pSelected)
 	{
 		m_pSelected.get()->Filler = TRUE;
 		COLORREF color{ static_cast<COLORREF>(GetDocument()->GetElementColor()) };
