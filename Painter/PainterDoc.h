@@ -55,12 +55,14 @@ public:
 	void AddElement(std::shared_ptr<CElement>& pElement)
 	{
 		m_Paint.push_back(pElement);
+		SetModifiedFlag();
 	}
 	//É¾³ýÍ¼ÐÎ
 	void DeleteElement(std::shared_ptr<CElement>& pElement)
 	{
 		m_Paint.remove(pElement);
 		UpdateAllViews(nullptr, 0, pElement.get());
+		SetModifiedFlag();
 	}
 
 protected:

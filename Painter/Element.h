@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-
+#include "ElementType.h"
 //高亮颜色
 static const COLORREF SELECT_COLOR{ RGB(255, 0, 180) };
 
@@ -11,6 +11,7 @@ protected:
 	int m_PenWidth;		//笔宽
 	//COLORREF m_Color;	//图形颜色
 	CRect m_EnclosingRect;	//包围图形的矩形
+	ElementType type;
 public:
 	BOOL Filler{ FALSE };
 	COLORREF m_Color;	//图形颜色

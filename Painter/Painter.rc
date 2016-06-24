@@ -628,6 +628,13 @@ BEGIN
     ID_SETTINGS_PENWIDTHS   "Set Pen Widths"
 END
 
+STRINGTABLE
+BEGIN
+    ID_TOOLS_ERASER         "using eraser\neraser"
+    ID_TOOLS_FILLER         "using filler\nfiller"
+    ID_TOOLS_PEN            "painting\npen"
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 

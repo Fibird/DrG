@@ -160,6 +160,7 @@ void CPainterDoc::OnElementLine()
 {
 	//设置图形类型为直线
 	m_Element = ElementType::LINE;
+	SetModifiedFlag();
 }
 
 
@@ -167,6 +168,7 @@ void CPainterDoc::OnElementRectangle()
 {
 	//设置图形类型为矩形
 	m_Element = ElementType::RECTANGLE;
+	SetModifiedFlag();
 }
 
 
@@ -174,6 +176,7 @@ void CPainterDoc::OnElementCircle()
 {
 	//设置图形类型为圆
 	m_Element = ElementType::CIRCLE;
+	SetModifiedFlag();
 }
 
 
@@ -181,6 +184,7 @@ void CPainterDoc::OnElementCurve()
 {
 	//设置图形类型为曲线
 	m_Element = ElementType::CURVE;
+	SetModifiedFlag();
 }
 
 
@@ -188,6 +192,7 @@ void CPainterDoc::OnElementEllipse()
 {
 	//设置图形类型为椭圆
 	m_Element = ElementType::ELLIPSE;
+	SetModifiedFlag();
 }
 
 
@@ -195,6 +200,7 @@ void CPainterDoc::OnColorBlack()
 {
 	//将图形颜色设置为黑色
 	m_Color = ElementColor::BLACK;
+	SetModifiedFlag();
 }
 
 
@@ -202,6 +208,7 @@ void CPainterDoc::OnColorRed()
 {
 	//将图形颜色设置为红色
 	m_Color = ElementColor::RED;
+	SetModifiedFlag();
 }
 
 
@@ -209,6 +216,7 @@ void CPainterDoc::OnColorGreen()
 {
 	//将图形颜色设置为绿色
 	m_Color = ElementColor::GREEN;
+	SetModifiedFlag();
 }
 
 
@@ -216,68 +224,69 @@ void CPainterDoc::OnColorBlue()
 {
 	//将图形颜色设置为蓝色
 	m_Color = ElementColor::BLUE;
+	SetModifiedFlag();
 }
 
 
 void CPainterDoc::OnUpdateColorBlack(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current color is black
+	//如果颜色是黑色，则选中黑色按钮
 	pCmdUI->SetCheck(m_Color == ElementColor::BLACK);
 }
 
 
 void CPainterDoc::OnUpdateColorRed(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current color is red
+	//如果颜色是红色，则选中红色按钮
 	pCmdUI->SetCheck(m_Color == ElementColor::RED);
 }
 
 
 void CPainterDoc::OnUpdateColorGreen(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current color is green
+	//如果颜色是绿色，则选中绿色按钮
 	pCmdUI->SetCheck(m_Color == ElementColor::GREEN);
 }
 
 
 void CPainterDoc::OnUpdateColorBlue(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current color is blue
+	//如果颜色是蓝色，则选中蓝色按钮
 	pCmdUI->SetCheck(m_Color == ElementColor::BLUE);
 }
 
 
 void CPainterDoc::OnUpdateElementLine(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current type is line
+	//如果类型是直线，则选中直线按钮
 	pCmdUI->SetCheck(m_Element == ElementType::LINE);
 }
 
 
 void CPainterDoc::OnUpdateElementRectangle(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current type is rectangle
+	//如果类型是矩形，则选中矩形按钮
 	pCmdUI->SetCheck(m_Element == ElementType::RECTANGLE);
 }
 
 
 void CPainterDoc::OnUpdateElementCircle(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current type is circle
+	//如果类型是圆形，则选中圆形按钮
 	pCmdUI->SetCheck(m_Element == ElementType::CIRCLE);
 }
 
 
 void CPainterDoc::OnUpdateElementCurve(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current type is curve
+	//如果类型是曲线，则选中曲线按钮
 	pCmdUI->SetCheck(m_Element == ElementType::CURVE);
 }
 
 
 void CPainterDoc::OnUpdateElementEllipse(CCmdUI *pCmdUI)
 {
-	// Set the menu item checked if current type is ellipse
+	//如果类型是椭圆，则选中椭圆按钮
 	pCmdUI->SetCheck(m_Element == ElementType::ELLIPSE);
 }
 

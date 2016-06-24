@@ -123,7 +123,7 @@ std::shared_ptr<CElement> CPainterView::CreateElement() const
 {
 	//获取指向当前视图文档的指针
 	CPainterDoc *pDoc = GetDocument();
-	ASSERT_VALID(pDoc);		//Vertify the pointer is good
+	ASSERT_VALID(pDoc);
 
 	//获得当前图形的颜色
 	COLORREF color{ static_cast<COLORREF>(pDoc->GetElementColor()) };
@@ -186,28 +186,35 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 	CClientDC aDC{ this };	//创建设备上下文
 	OnPrepareDC(&aDC);		//调节原点位置
 	aDC.DPtoLP(&point);		//转化为逻辑坐标
+	CPainterDoc *pDC(GetDocument());
 	if (m_MoveMode)
 	{
 		m_MoveMode = FALSE;
 
 		auto pElement (m_pSelected);
 		m_pSelected.reset();
-		GetDocument()->UpdateAllViews(nullptr, 0, pElement.get());
+		pDC->UpdateAllViews(nullptr, 0, pElement.get());
+		pDC->SetModifiedFlag();
 	}
 	else if (use_eraser && m_pSelected)
 	{
-		GetDocument()->DeleteElement(m_pSelected);
+
+		pDC->DeleteElement(m_pSelected);
 		m_pSelected.reset();
+		//标记为被修改
+		pDC->SetModifiedFlag();
 	}
 	else if (use_filler && m_pSelected)
 	{
 		m_pSelected.get()->Filler = TRUE;
-		COLORREF color{ static_cast<COLORREF>(GetDocument()->GetElementColor()) };
+		COLORREF color{ static_cast<COLORREF>(pDC->GetElementColor()) };
+		// 设置画刷颜色
 		m_pSelected.get()->m_Color = color;
 		auto pElement(m_pSelected);
 		m_pSelected.reset();
-		GetDocument()->UpdateAllViews(nullptr, 0, pElement.get());
-		use_filler = FALSE;
+		pDC->UpdateAllViews(nullptr, 0, pElement.get());
+		//use_filler = FALSE;
+		pDC->SetModifiedFlag();
 	}
 	else
 	{
@@ -229,8 +236,9 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		MoveElement(aDC, point);
 	}
-	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()))	//判断是否按下鼠标左键以及是否成功捕捉鼠标
-	{
+	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()) && !use_eraser && !use_filler)	
+	{	//判断是否按下鼠标左键以及是否成功捕捉鼠标、是否使用橡皮擦、填充桶
+		//因为在使用橡皮擦、填充桶时，不可画图
 		m_SecondPoint = point;
 		if (m_pTempElement)
 		{
@@ -433,6 +441,8 @@ void CPainterView::OnToolsPen()
 {
 	//取消橡皮擦
 	use_eraser = FALSE;
+	//取消填充
+	use_filler = FALSE;
 }
 
 
@@ -441,7 +451,23 @@ void CPainterView::OnEditCopy()
 	//复制图形
 	if (m_pSelected)
 	{
-		//auto *m_pTempElement = *m_pSelected;
+		/*switch ()
+		{
+		case CRectangle::typeid:
+			return std::make_shared<CRectangle>(m_FirstPoint, m_SecondPoint, color, PenWidth);
+		case ElementType::CIRCLE:
+			return std::make_shared<CCircle>(m_FirstPoint, m_SecondPoint, color, PenWidth);
+		case ElementType::CURVE:
+			return std::make_shared<CCurve>(m_FirstPoint, m_SecondPoint, color, PenWidth);
+		case ElementType::LINE:
+			return std::make_shared<CLine>(m_FirstPoint, m_SecondPoint, color, PenWidth);
+		case ElementType::ELLIPSE:
+			return std::make_shared<CEllipse>(m_FirstPoint, m_SecondPoint, color, PenWidth);
+		default:
+			AfxMessageBox(_T("Bad Element code"), MB_OK);
+			AfxAbort();
+			return nullptr;
+		}*/
 	}
 }
 

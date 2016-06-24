@@ -1,5 +1,6 @@
 #pragma once
 #include "Element.h"
+#include "ElementType.h"
 class CCircle :
 	public CElement
 {
@@ -12,6 +13,6 @@ public:
 
 protected:
 	CPoint m_BottomRight;
-	CCircle();
+	CCircle(); 
 };
 
