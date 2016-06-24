@@ -196,7 +196,8 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		auto pElement (m_pSelected);
 		m_pSelected.reset();
-		pDC->UpdateAllViews(nullptr, 0, pElement.get());
+		//pDC->UpdateAllViews(nullptr, 0, pElement.get());
+		pDC->UpdateAllViews(NULL);
 		pDC->SetModifiedFlag();
 	}
 	else if (use_eraser && m_pSelected)
