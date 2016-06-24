@@ -43,6 +43,9 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_COMMAND(ID_TOOLS_PEN, &CPainterView::OnToolsPen)
 	ON_COMMAND(ID_EDIT_COPY, &CPainterView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CPainterView::OnEditPaste)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_ERASER, &CPainterView::OnUpdateToolsEraser)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_FILLER, &CPainterView::OnUpdateToolsFiller)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_PEN, &CPainterView::OnUpdateToolsPen)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -490,4 +493,25 @@ void CPainterView::OnEditPaste()
 		InvalidateRect(aRect);
 		m_pTempElement.reset();
 	}
+}
+
+
+void CPainterView::OnUpdateToolsEraser(CCmdUI *pCmdUI)
+{
+	// 将橡皮擦设置为被按下
+	pCmdUI->SetCheck(use_eraser);
+}
+
+
+void CPainterView::OnUpdateToolsFiller(CCmdUI *pCmdUI)
+{
+	// 如果点击填充桶则将按钮设置为被按下
+	pCmdUI->SetCheck(use_filler);
+}
+
+
+void CPainterView::OnUpdateToolsPen(CCmdUI *pCmdUI)
+{
+	// 如果点击画笔则将其按钮设置为被按下
+	pCmdUI->SetCheck(!(use_eraser || use_filler));
 }

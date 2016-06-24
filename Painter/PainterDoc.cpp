@@ -76,7 +76,7 @@ void CPainterDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		// TODO: add storing code here
+		
 	}
 	else
 	{

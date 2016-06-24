@@ -74,6 +74,9 @@ public:
 	afx_msg void OnToolsPen();
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();
+	afx_msg void OnUpdateToolsEraser(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateToolsFiller(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateToolsPen(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp
