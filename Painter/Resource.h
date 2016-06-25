@@ -16,6 +16,8 @@
 #define IDC_SPIN_PENWIDTH               1011
 #define IDC_SCALE_SLIDER                1012
 #define IDC_DEFAULT_BUTTON              1013
+#define IDC_EDIT1                       1014
+#define IDC_SCALE                       1014
 #define ID_ELEMENT_LINE                 32771
 #define ID_ELEMENT_RECTANGLE            32772
 #define ID_ELEMENT_CIRCLE               32773
@@ -61,7 +63,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        319
 #define _APS_NEXT_COMMAND_VALUE         32827
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

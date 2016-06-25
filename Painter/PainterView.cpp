@@ -16,6 +16,7 @@
 #include "Line.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
+#include "ScaleDialog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,6 +47,7 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_UPDATE_COMMAND_UI(ID_TOOLS_ERASER, &CPainterView::OnUpdateToolsEraser)
 	ON_UPDATE_COMMAND_UI(ID_TOOLS_FILLER, &CPainterView::OnUpdateToolsFiller)
 	ON_UPDATE_COMMAND_UI(ID_TOOLS_PEN, &CPainterView::OnUpdateToolsPen)
+	ON_COMMAND(ID_SETTINGS_DRAWINGSCALE, &CPainterView::OnSettingsDrawingscale)
 END_MESSAGE_MAP()
 
 // CPainterView construction/destruction
@@ -515,4 +517,13 @@ void CPainterView::OnUpdateToolsPen(CCmdUI *pCmdUI)
 {
 	// 如果点击画笔则将其按钮设置为被按下
 	pCmdUI->SetCheck(!(use_eraser || use_filler));
+}
+
+
+void CPainterView::OnSettingsDrawingscale()
+{
+	// TODO: Add your command handler code here
+	CScaleDialog *sdlg = new CScaleDialog;
+	sdlg->Create(IDD_SCALE_DLG);
+	sdlg->ShowWindow(SW_SHOWNORMAL);
 }

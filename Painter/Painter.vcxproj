@@ -200,6 +200,7 @@
     <ClInclude Include="PenDialog.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ScaleDialog.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -216,6 +217,7 @@
     <ClCompile Include="PainterView.cpp" />
     <ClCompile Include="PenDialog.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="ScaleDialog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
