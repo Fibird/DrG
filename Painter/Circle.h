@@ -4,6 +4,7 @@
 class CCircle :
 	public CElement
 {
+	DECLARE_SERIAL(CCircle)
 public:
 	virtual ~CCircle();
 	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) override;  //¸²¸Ç¸¸ÀàµÄDrawº¯Êý
@@ -14,5 +15,7 @@ public:
 protected:
 	CPoint m_BottomRight;
 	CCircle(); 
+public:
+	virtual void Serialize(CArchive& ar);
 };
 

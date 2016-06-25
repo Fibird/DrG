@@ -76,11 +76,38 @@ void CPainterDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		
+		ar << static_cast<COLORREF>(m_Color);
+		ar << static_cast<int>(m_Element);
+		ar << m_PenWidth;
+
+		//保存list的大小
+		ar << m_Paint.size();
+
+		for (auto const &p : m_Paint)
+		{
+			ar << p.get();
+		}
 	}
 	else
 	{
-		// TODO: add loading code here
+		COLORREF color {};
+		int type;
+
+		ar >> color;
+		m_Color = static_cast<ElementColor>(color);
+		ar >> type;
+		m_Element = static_cast<ElementType>(type);
+		ar >> m_PenWidth;
+
+		size_t m_paint_size{};
+		ar >> m_paint_size;
+		CElement *t;
+
+		for (size_t i{}; i < m_paint_size; i++)
+		{
+			ar >> t;
+			m_Paint.push_back(std::shared_ptr<CElement>(t));
+		}
 	}
 }
 

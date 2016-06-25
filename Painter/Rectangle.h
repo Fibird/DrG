@@ -3,6 +3,7 @@
 class CRectangle :
 	public CElement
 {
+	DECLARE_SERIAL(CRectangle)
 public:
 	virtual ~CRectangle();
 	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) override;	//显示一个矩形，覆盖父类的Draw函数
@@ -13,5 +14,7 @@ public:
 protected:
 	CPoint m_BottomRight;
 	CRectangle();
+public:
+	virtual void Serialize(CArchive& ar);
 };
 

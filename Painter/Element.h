@@ -6,6 +6,7 @@ static const COLORREF SELECT_COLOR{ RGB(255, 0, 180) };
 
 class CElement : public CObject
 {
+	DECLARE_SERIAL(CElement)
 protected:
 	CPoint m_StartPoint;
 	int m_PenWidth;		//±Ê¿í
@@ -15,6 +16,7 @@ protected:
 public:
 	BOOL Filler{ FALSE };
 	COLORREF m_Color;	//Í¼ÐÎÑÕÉ«
+	const static UINT VERSION_NUMBER{ 1001 };
 public:
 	//CElement();
 	virtual ~CElement();
@@ -45,6 +47,8 @@ protected:
 			AfxAbort();
 		}
 	}
+public:
+	virtual void Serialize(CArchive& ar);
 };
 
 

@@ -3,6 +3,7 @@
 class CEllipse :
 	public CElement
 {
+	DECLARE_SERIAL(CEllipse)
 public:
 	virtual ~CEllipse();
 	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) override;	//¸²¸Ç¸¸ÀàµÄDrawº¯Êý
@@ -13,5 +14,7 @@ public:
 protected:
 	CPoint m_BottomRight;
 	CEllipse();
+public:
+	virtual void Serialize(CArchive& ar);
 };
 

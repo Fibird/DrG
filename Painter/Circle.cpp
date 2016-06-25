@@ -2,6 +2,7 @@
 #include "Circle.h"
 #include <cmath>
 
+IMPLEMENT_SERIAL(CCircle, CElement, VERSION_NUMBER)
 CCircle::CCircle()
 {
 }
@@ -63,4 +64,18 @@ CCircle::CCircle(const CPoint& start, const CPoint& end, COLORREF color, int Pen
 	//定义边界矩形
 	m_EnclosingRect = CRect{ m_StartPoint.x, m_StartPoint.y, m_BottomRight.x, m_BottomRight.y };
 	m_EnclosingRect.InflateRect(width, width);
+}
+
+
+void CCircle::Serialize(CArchive& ar)
+{
+	CElement::Serialize(ar);
+	if (ar.IsStoring())
+	{	// storing code
+		ar << m_BottomRight;
+	}
+	else
+	{	// loading code
+		ar >> m_BottomRight;
+	}
 }

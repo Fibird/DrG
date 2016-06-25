@@ -2,6 +2,7 @@
 #include "Rectangle.h"
 #include <algorithm>
 
+IMPLEMENT_SERIAL(CRectangle, CElement, VERSION_NUMBER)
 CRectangle::CRectangle()
 {
 }
@@ -63,4 +64,18 @@ CRectangle::CRectangle(const CPoint & start, const CPoint & end, COLORREF color,
 	//定义矩形的边界矩形
 	m_EnclosingRect = CRect{ m_StartPoint, m_BottomRight };
 	m_EnclosingRect.InflateRect(width, width);
+}
+
+
+void CRectangle::Serialize(CArchive& ar)
+{
+	CElement::Serialize(ar);
+	if (ar.IsStoring())
+	{	// storing code
+		ar << m_BottomRight;
+	}
+	else
+	{	// loading code
+		ar >> m_BottomRight;
+	}
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Ellipse.h"
 
-
+IMPLEMENT_SERIAL(CEllipse, CElement, VERSION_NUMBER)
 CEllipse::CEllipse()
 {
 }
@@ -70,4 +70,18 @@ CEllipse::CEllipse(const CPoint & center, const CPoint & end, COLORREF color, in
 	m_EnclosingRect = CRect{ m_StartPoint, m_BottomRight };
 	m_EnclosingRect.NormalizeRect();
 	m_EnclosingRect.InflateRect(width, width);
+}
+
+
+void CEllipse::Serialize(CArchive& ar)
+{
+	CElement::Serialize(ar);
+	if (ar.IsStoring())
+	{	// storing code
+		ar << m_BottomRight;
+	}
+	else
+	{	// loading code
+		ar >> m_BottomRight;
+	}
 }

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Line.h"
 
+IMPLEMENT_SERIAL(CLine, CElement, VERSION_NUMBER)
 
 CLine::CLine()
 {
@@ -45,4 +46,18 @@ void CLine::Move(const CSize & aSize)
 	m_StartPoint += aSize;
 	m_EndPoint += aSize;
 	m_EnclosingRect += aSize;
+}
+
+
+void CLine::Serialize(CArchive& ar)
+{
+	CElement::Serialize(ar);
+	if (ar.IsStoring())
+	{	// storing code
+		ar << m_EndPoint;
+	}
+	else
+	{	// loading code
+		ar >> m_EndPoint;
+	}
 }

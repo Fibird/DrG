@@ -5,6 +5,7 @@
 class CCurve :
 	public CElement
 {
+	DECLARE_SERIAL(CCurve)
 public:
 	virtual ~CCurve();
 	virtual void Draw(CDC *pDC, std::shared_ptr<CElement> pElement = nullptr) override;  //覆盖父类的Draw函数
@@ -16,5 +17,7 @@ public:
 protected:
 	std::vector<CPoint> m_Points;	//存储曲线的点
 	CCurve();
+public:
+	virtual void Serialize(CArchive& ar);
 };
 
