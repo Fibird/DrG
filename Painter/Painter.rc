@@ -455,13 +455,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "CompanyName", "nwsuaf"
             VALUE "FileDescription", "Painter"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "Painter.exe"
-            VALUE "LegalCopyright", "TODO: (c) <Chaoyang Liu>.  All rights reserved."
+            VALUE "LegalCopyright", "(c) <Chaoyang Liu>.  All rights reserved."
             VALUE "OriginalFilename", "Painter.exe"
-            VALUE "ProductName", "TODO: <Painter>"
+            VALUE "ProductName", "Painter"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END

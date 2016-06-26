@@ -21,7 +21,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	DECLARE_MESSAGE_MAP()
 public:
-	int m_Scale;
+	int m_Scale{ 1 };
 	virtual BOOL OnInitDialog();
 protected:
 	CSliderCtrl m_slider;

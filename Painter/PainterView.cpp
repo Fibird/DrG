@@ -38,15 +38,15 @@ BEGIN_MESSAGE_MAP(CPainterView, CScrollView)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_ELEMENT_MOVE, &CPainterView::OnElementMove)
 	ON_COMMAND(ID_ELEMENT_DELETE, &CPainterView::OnElementDelete)
-	ON_COMMAND(ID_TOOLS_ERASER, &CPainterView::OnToolsEraser)
-	ON_COMMAND(ID_TOOLS_FILLER, &CPainterView::OnToolsFiller)
+	//ON_COMMAND(ID_TOOLS_ERASER, &CPainterView::OnToolsEraser)
+	//ON_COMMAND(ID_TOOLS_FILLER, &CPainterView::OnToolsFiller)
 	ON_COMMAND(ID_ELEMENT_CANCEL, &CPainterView::OnElementCancel)
-	ON_COMMAND(ID_TOOLS_PEN, &CPainterView::OnToolsPen)
+	//ON_COMMAND(ID_TOOLS_PEN, &CPainterView::OnToolsPen)
 	ON_COMMAND(ID_EDIT_COPY, &CPainterView::OnEditCopy)
 	ON_COMMAND(ID_EDIT_PASTE, &CPainterView::OnEditPaste)
-	ON_UPDATE_COMMAND_UI(ID_TOOLS_ERASER, &CPainterView::OnUpdateToolsEraser)
-	ON_UPDATE_COMMAND_UI(ID_TOOLS_FILLER, &CPainterView::OnUpdateToolsFiller)
-	ON_UPDATE_COMMAND_UI(ID_TOOLS_PEN, &CPainterView::OnUpdateToolsPen)
+	//ON_UPDATE_COMMAND_UI(ID_TOOLS_ERASER, &CPainterView::OnUpdateToolsEraser)
+	//ON_UPDATE_COMMAND_UI(ID_TOOLS_FILLER, &CPainterView::OnUpdateToolsFiller)
+	//ON_UPDATE_COMMAND_UI(ID_TOOLS_PEN, &CPainterView::OnUpdateToolsPen)
 	ON_COMMAND(ID_SETTINGS_DRAWINGSCALE, &CPainterView::OnSettingsDrawingscale)
 END_MESSAGE_MAP()
 
@@ -56,7 +56,7 @@ CPainterView::CPainterView()
 	: m_FirstPoint{CPoint{}}
 {
 	// TODO: add construction code here
-
+	
 }
 
 CPainterView::~CPainterView()
@@ -202,7 +202,7 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 		pDC->UpdateAllViews(NULL);
 		pDC->SetModifiedFlag();
 	}
-	else if (use_eraser && m_pSelected)
+	else if (pDC->UseEraser() && m_pSelected)
 	{
 
 		pDC->DeleteElement(m_pSelected);
@@ -210,7 +210,7 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 		//标记为被修改
 		pDC->SetModifiedFlag();
 	}
-	else if (use_filler && m_pSelected)
+	else if (pDC->UseFiller() && m_pSelected)
 	{
 		m_pSelected.get()->Filler = TRUE;
 		COLORREF color{ static_cast<COLORREF>(pDC->GetElementColor()) };
@@ -219,7 +219,6 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 		auto pElement(m_pSelected);
 		m_pSelected.reset();
 		pDC->UpdateAllViews(nullptr, 0, pElement.get());
-		//use_filler = FALSE;
 		pDC->SetModifiedFlag();
 	}
 	else
@@ -237,12 +236,13 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	CClientDC aDC{ this };
 	OnPrepareDC(&aDC);
 	aDC.DPtoLP(&point);
+	CPainterDoc *pDC = GetDocument();
 	
 	if (m_MoveMode)
 	{
 		MoveElement(aDC, point);
 	}
-	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()) && !use_eraser && !use_filler)	
+	else if ((nFlags & MK_LBUTTON) && (this == GetCapture()) && !pDC->UseEraser() && !pDC->UseFiller())	
 	{	//判断是否按下鼠标左键以及是否成功捕捉鼠标、是否使用橡皮擦、填充桶
 		//因为在使用橡皮擦、填充桶时，不可画图
 		m_SecondPoint = point;
@@ -388,27 +388,6 @@ void CPainterView::OnElementDelete()
 }
 
 
-void CPainterView::OnToolsEraser()
-{
-	//使用橡皮擦
-	use_eraser = TRUE;
-	//不能同时处在m_MoveMode
-	m_MoveMode = FALSE;
-	use_filler = FALSE;
-}
-
-
-void CPainterView::OnToolsFiller()
-{
-	// TODO: Add your command handler code here
-	//使用填充
-	use_filler = TRUE;
-	//不能同时处在m_MoveMode
-	m_MoveMode = FALSE;
-	use_eraser = FALSE;
-}
-
-
 void CPainterView::MoveElement(CClientDC& aDC, const CPoint& point)
 {
 	CSize distance{ point - m_CursorPos };		//计算移动距离
@@ -440,15 +419,6 @@ void CPainterView::OnElementCancel()
 		m_pSelected.reset();
 		GetDocument()->UpdateAllViews(nullptr);
 	}
-}
-
-
-void CPainterView::OnToolsPen()
-{
-	//取消橡皮擦
-	use_eraser = FALSE;
-	//取消填充
-	use_filler = FALSE;
 }
 
 
@@ -499,31 +469,23 @@ void CPainterView::OnEditPaste()
 }
 
 
-void CPainterView::OnUpdateToolsEraser(CCmdUI *pCmdUI)
-{
-	// 将橡皮擦设置为被按下
-	pCmdUI->SetCheck(use_eraser);
-}
-
-
-void CPainterView::OnUpdateToolsFiller(CCmdUI *pCmdUI)
-{
-	// 如果点击填充桶则将按钮设置为被按下
-	pCmdUI->SetCheck(use_filler);
-}
-
-
-void CPainterView::OnUpdateToolsPen(CCmdUI *pCmdUI)
-{
-	// 如果点击画笔则将其按钮设置为被按下
-	pCmdUI->SetCheck(!(use_eraser || use_filler));
-}
-
-
 void CPainterView::OnSettingsDrawingscale()
 {
 	// TODO: Add your command handler code here
 	CScaleDialog *sdlg = new CScaleDialog;
+	sdlg->m_Scale = m_Scale;
 	sdlg->Create(IDD_SCALE_DLG);
 	sdlg->ShowWindow(SW_SHOWNORMAL);
+	while (sdlg->m_Scale != m_Scale)
+	{
+		m_Scale = sdlg->m_Scale;
+		InvalidateRect(nullptr);
+	}
+}
+
+void CPainterView::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo)
+{
+	// TODO: Add your specialized code here and/or call the base class
+
+	CScrollView::OnPrepareDC(pDC, pInfo);
 }

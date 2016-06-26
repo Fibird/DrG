@@ -55,6 +55,7 @@ protected:
 	BOOL use_eraser{ FALSE };		//标记是否使用橡皮
 	BOOL m_MoveMode{ FALSE };		//标记是否是移动模式
 	BOOL use_filler{ FALSE };
+	int m_Scale{ 1 };
 	//存储临时图像
 	std::shared_ptr<CElement> m_pTempElement;
 	//指向被选中的图形
@@ -65,19 +66,14 @@ public:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnElementMove();
 	afx_msg void OnElementDelete();
-	afx_msg void OnToolsEraser();
-	afx_msg void OnToolsFiller();
 protected:
 	void MoveElement(CClientDC& aDC, const CPoint& point);
 public:
 	afx_msg void OnElementCancel();
-	afx_msg void OnToolsPen();
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();
-	afx_msg void OnUpdateToolsEraser(CCmdUI *pCmdUI);
-	afx_msg void OnUpdateToolsFiller(CCmdUI *pCmdUI);
-	afx_msg void OnUpdateToolsPen(CCmdUI *pCmdUI);
 	afx_msg void OnSettingsDrawingscale();
+	virtual void OnPrepareDC(CDC* pDC, CPrintInfo* pInfo = NULL);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

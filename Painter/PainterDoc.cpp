@@ -41,6 +41,12 @@ BEGIN_MESSAGE_MAP(CPainterDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_ELEMENT_CURVE, &CPainterDoc::OnUpdateElementCurve)
 	ON_UPDATE_COMMAND_UI(ID_ELEMENT_ELLIPSE, &CPainterDoc::OnUpdateElementEllipse)
 	ON_COMMAND(ID_SETTINGS_PENWIDTHS, &CPainterDoc::OnSettingsPenwidths)
+	ON_COMMAND(ID_TOOLS_ERASER, &CPainterDoc::OnToolsEraser)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_ERASER, &CPainterDoc::OnUpdateToolsEraser)
+	ON_COMMAND(ID_TOOLS_FILLER, &CPainterDoc::OnToolsFiller)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_FILLER, &CPainterDoc::OnUpdateToolsFiller)
+	ON_COMMAND(ID_TOOLS_PEN, &CPainterDoc::OnToolsPen)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_PEN, &CPainterDoc::OnUpdateToolsPen)
 END_MESSAGE_MAP()
 
 
@@ -193,6 +199,8 @@ void CPainterDoc::OnElementLine()
 
 void CPainterDoc::OnElementRectangle()
 {
+	if (ifUseTools())
+		return;
 	//设置图形类型为矩形
 	m_Element = ElementType::RECTANGLE;
 	SetModifiedFlag();
@@ -201,6 +209,8 @@ void CPainterDoc::OnElementRectangle()
 
 void CPainterDoc::OnElementCircle()
 {
+	if (ifUseTools())
+		return;
 	//设置图形类型为圆
 	m_Element = ElementType::CIRCLE;
 	SetModifiedFlag();
@@ -209,6 +219,8 @@ void CPainterDoc::OnElementCircle()
 
 void CPainterDoc::OnElementCurve()
 {
+	if (ifUseTools())
+		return;
 	//设置图形类型为曲线
 	m_Element = ElementType::CURVE;
 	SetModifiedFlag();
@@ -217,6 +229,8 @@ void CPainterDoc::OnElementCurve()
 
 void CPainterDoc::OnElementEllipse()
 {
+	if (ifUseTools())
+		return;
 	//设置图形类型为椭圆
 	m_Element = ElementType::ELLIPSE;
 	SetModifiedFlag();
@@ -286,35 +300,39 @@ void CPainterDoc::OnUpdateColorBlue(CCmdUI *pCmdUI)
 void CPainterDoc::OnUpdateElementLine(CCmdUI *pCmdUI)
 {
 	//如果类型是直线，则选中直线按钮
-	pCmdUI->SetCheck(m_Element == ElementType::LINE);
+	pCmdUI->SetCheck((m_Element == ElementType::LINE) && !ifUseTools());
 }
 
 
 void CPainterDoc::OnUpdateElementRectangle(CCmdUI *pCmdUI)
 {
 	//如果类型是矩形，则选中矩形按钮
-	pCmdUI->SetCheck(m_Element == ElementType::RECTANGLE);
+	pCmdUI->SetCheck((m_Element == ElementType::RECTANGLE) && !ifUseTools());
 }
 
 
 void CPainterDoc::OnUpdateElementCircle(CCmdUI *pCmdUI)
 {
 	//如果类型是圆形，则选中圆形按钮
-	pCmdUI->SetCheck(m_Element == ElementType::CIRCLE);
+	pCmdUI->SetCheck((m_Element == ElementType::CIRCLE) && !ifUseTools());
 }
 
 
 void CPainterDoc::OnUpdateElementCurve(CCmdUI *pCmdUI)
 {
+	if (ifUseTools())
+	{
+		return;
+	}
 	//如果类型是曲线，则选中曲线按钮
-	pCmdUI->SetCheck(m_Element == ElementType::CURVE);
+	pCmdUI->SetCheck((m_Element == ElementType::CURVE) && !ifUseTools());
 }
 
 
 void CPainterDoc::OnUpdateElementEllipse(CCmdUI *pCmdUI)
 {
 	//如果类型是椭圆，则选中椭圆按钮
-	pCmdUI->SetCheck(m_Element == ElementType::ELLIPSE);
+	pCmdUI->SetCheck((m_Element == ElementType::ELLIPSE) && !ifUseTools());
 }
 
 
@@ -339,4 +357,60 @@ void CPainterDoc::OnSettingsPenwidths()
 	{
 		m_PenWidth = aDlg.m_PenWidth;
 	}
+}
+
+
+void CPainterDoc::OnToolsEraser()
+{
+	// TODO: Add your command handler code here
+	//使用橡皮擦
+	use_eraser = TRUE;
+	//不能同时处在m_MoveMode
+	//m_MoveMode = FALSE;
+	use_filler = FALSE;
+}
+
+
+void CPainterDoc::OnUpdateToolsEraser(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	// 将橡皮擦设置为被按下
+	pCmdUI->SetCheck(use_eraser);
+}
+
+
+void CPainterDoc::OnToolsFiller()
+{
+	// TODO: Add your command handler code here
+	//使用填充
+	use_filler = TRUE;
+	//不能同时处在m_MoveMode
+	//m_MoveMode = FALSE;
+	use_eraser = FALSE;
+}
+
+
+void CPainterDoc::OnUpdateToolsFiller(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	// 如果点击填充桶则将按钮设置为被按下
+	pCmdUI->SetCheck(use_filler);
+}
+
+
+void CPainterDoc::OnToolsPen()
+{
+	// TODO: Add your command handler code here
+	//取消橡皮擦
+	use_eraser = FALSE;
+	//取消填充
+	use_filler = FALSE;
+}
+
+
+void CPainterDoc::OnUpdateToolsPen(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	// 如果点击画笔则将其按钮设置为被按下
+	pCmdUI->SetCheck(!(use_eraser || use_filler));
 }
